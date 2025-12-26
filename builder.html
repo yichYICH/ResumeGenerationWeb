@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简历编辑器 - 高分前端大作业</title>
+
+    <link rel="stylesheet" href="builder.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container">
+        <div class="nav-group">
+          <a href="index.html" class="logo">
+            <i class="ri-briefcase-line"></i>
+            <span class="logo-text">在线简历生成器</span>
+          </a>
+        </div>
+        <div class="header-actions">
+          <button class="header-btn" id="save-data-btn">
+            <i class="ri-save-line"></i> 保存进度
+          </button>
+          <button class="btn btn-primary" id="download-pdf-btn">
+            <i class="ri-download-line"></i> 导出
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div id="app-container" class="app-container-grid">
+      <nav id="main-sidebar">
+        <div
+          class="sidebar-item active"
+          data-content-id="tab-content-content"
+          data-tab-name="content"
+        >
+          <i class="ri-edit-box-line"></i>
+          <span>内容</span>
+        </div>
+        <div
+          class="sidebar-item"
+          data-content-id="tab-content-style"
+          data-tab-name="style"
+        >
+          <i class="ri-palette-line"></i>
+          <span>样式</span>
+        </div>
+        <div
+          class="sidebar-item"
+          data-content-id="tab-content-tools"
+          data-tab-name="tools"
+        >
+          <i class="ri-tools-line"></i>
+          <span>工具</span>
+        </div>
+        <div class="sidebar-item" style="margin-top: auto" id="zoom-out-btn">
+          <i class="ri-zoom-out-line"></i>
+          <span>缩小</span>
+        </div>
+        <div class="sidebar-item" id="zoom-in-btn">
+          <i class="ri-zoom-in-line"></i>
+          <span>放大</span>
+        </div>
+      </nav>
+
+      <aside id="editor-panel">
+        <div class="tab-content" id="tab-content-content">
+          <form id="resume-form">
+            <fieldset>
+              <legend>基本信息</legend>
+              <input type="text" name="name" placeholder="姓名" required />
+              <input type="email" name="email" placeholder="邮箱" required />
+              <input type="tel" name="phone" placeholder="电话" />
+            </fieldset>
+
+            <fieldset>
+              <legend>个人简介</legend>
+              <textarea
+                name="summary"
+                rows="5"
+                placeholder="简要介绍您的核心优势..."
+              ></textarea>
+              <div class="char-counter" id="summary-char-counter">0 / 500</div>
+            </fieldset>
+
+            <fieldset id="education-container">
+              <legend>教育经历</legend>
+              <div class="item-group">
+                <input type="text" name="school[]" placeholder="学校名称" />
+                <input
+                  type="text"
+                  name="degree[]"
+                  placeholder="学历 (如：硕士, 学士)"
+                />
+                <input type="text" name="major[]" placeholder="专业" />
+                <input
+                  type="text"
+                  name="edu_time[]"
+                  placeholder="起止时间 (如：2020-09 - 2024-06)"
+                />
+                <button type="button" class="btn btn-danger remove-item-btn">
+                  <i class="ri-delete-bin-line"></i> 删除此项
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-education-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加教育经历
+            </button>
+
+            <fieldset id="experience-container">
+              <legend>实习/工作经历</legend>
+              <div class="item-group">
+                <input
+                  type="text"
+                  name="company[]"
+                  placeholder="公司/组织名称"
+                />
+                <input type="text" name="position[]" placeholder="职位" />
+                <input type="text" name="exp_time[]" placeholder="起止时间" />
+                <textarea
+                  name="duties[]"
+                  rows="4"
+                  placeholder="职责描述 (每行一条)"
+                ></textarea>
+                <button type="button" class="btn btn-danger remove-item-btn">
+                  <i class="ri-delete-bin-line"></i> 删除此项
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-experience-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加实习经历
+            </button>
+
+            <fieldset id="research-container">
+              <legend>科研经历</legend>
+              <div class="item-group">
+                <input
+                  type="text"
+                  name="research_field[]"
+                  placeholder="研究方向/实验室"
+                />
+                <input
+                  type="text"
+                  name="research_topic[]"
+                  placeholder="课题名称"
+                />
+                <textarea
+                  name="research_pubs[]"
+                  rows="3"
+                  placeholder="成果/发表论文 (选填)"
+                ></textarea>
+                <button type="button" class="btn btn-danger remove-item-btn">
+                  <i class="ri-delete-bin-line"></i> 删除此项
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-research-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加科研经历
+            </button>
+
+            <fieldset id="honors-container">
+              <legend>获奖情况</legend>
+              <div class="item-group">
+                <input
+                  type="text"
+                  name="honor_name[]"
+                  placeholder="奖项名称 (如：国家奖学金)"
+                />
+                <input
+                  type="text"
+                  name="honor_time[]"
+                  placeholder="获奖时间 (如：2023-10)"
+                />
+                <button type="button" class="btn btn-danger remove-item-btn">
+                  <i class="ri-delete-bin-line"></i> 删除此项
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-honor-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加奖项
+            </button>
+
+            <fieldset id="skills-container">
+              <legend>个人特长/技能</legend>
+              <div class="item-group item-group-skill">
+                <input
+                  type="text"
+                  name="skill_text[]"
+                  placeholder="技能/特长 (如：精通 Python)"
+                />
+                <button
+                  type="button"
+                  class="btn btn-danger remove-item-btn remove-skill-btn"
+                >
+                  <i class="ri-delete-bin-line"></i>
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-skill-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加技能
+            </button>
+
+            <fieldset>
+              <legend>自我评价</legend>
+              <textarea
+                name="evaluation"
+                rows="5"
+                placeholder="总结您的职业素养和求职意愿..."
+              ></textarea>
+              <div class="char-counter" id="evaluation-char-counter">
+                0 / 500
+              </div>
+            </fieldset>
+          </form>
+        </div>
+
+        <div class="tab-content hidden" id="tab-content-style">
+          <section class="settings-module">
+            <h3>简历模板 (6个)</h3>
+            <div class="template-selector">
+              <button data-template="modern" class="active">现代风</button>
+              <button data-template="classic">简约风</button>
+              <button data-template="professional">专业风</button>
+              <button data-template="creative">创意风</button>
+              <button data-template="minimal">极简风</button>
+              <button data-template="academic">学术风</button>
+            </div>
+          </section>
+
+          <section class="settings-module">
+            <h3>颜色与字体</h3>
+            <div class="color-picker-group">
+              <label for="color-theme">主色调:</label>
+              <input type="color" id="color-theme" value="#3B82F6" />
+              <span id="color-theme-display">#3B82F6</span>
+            </div>
+          </section>
+        </div>
+
+        <div class="tab-content hidden" id="tab-content-tools">
+          <section class="settings-module">
+            <h3>全局查找与替换</h3>
+            <p>在您简历的所有文本框中查找并替换词语。</p>
+            <input type="text" id="find-input" placeholder="查找内容" />
+            <input
+              type="text"
+              id="replace-input"
+              placeholder="替换为"
+              style="margin-top: 5px"
+            />
+            <button
+              class="btn btn-primary"
+              id="find-replace-btn"
+              style="width: 100%; margin-top: 10px"
+            >
+              <i class="ri-find-replace-line"></i> 全部替换
+            </button>
+          </section>
+
+          <section class="settings-module">
+            <h3>重置表单</h3>
+            <p>清空所有已填写的简历内容和本地缓存。</p>
+            <button
+              class="btn btn-danger"
+              id="reset-form-btn"
+              style="width: 100%"
+            >
+              <i class="ri-alert-line"></i> 清空所有内容
+            </button>
+          </section>
+        </div>
+      </aside>
+
+      <main id="preview-panel">
+        <div id="resume-preview" class="resume-template modern">
+          <header class="preview-header">
+            <h1 id="preview-name">您的姓名</h1>
+            <p class="contact-info" id="preview-contact">
+              <span id="preview-email-display">邮箱</span> |
+              <span id="preview-phone-display">电话</span>
+            </p>
+          </header>
+
+          <section class="preview-section" id="preview-summary-section">
+            <h2>个人简介</h2>
+            <p id="preview-summary">[请填写个人简介...]</p>
+          </section>
+
+          <section class="preview-section" id="preview-education-section">
+            <h2>教育背景</h2>
+            <ul id="preview-education">
+              <li>[学校名称] - [学历] - [专业] (时间)</li>
+            </ul>
+          </section>
+
+          <section class="preview-section" id="preview-experience-section">
+            <h2>实习/工作经历</h2>
+            <div id="preview-experience">
+              <article class="experience-detail">
+                <h3>[职位] @ [公司名称]</h3>
+                <p class="experience-time">[起止时间]</p>
+                <ul>
+                  <li>[职责描述示例...]</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="preview-section" id="preview-research-section">
+            <h2>科研经历</h2>
+            <div id="preview-research">
+              <article class="experience-detail">
+                <h3>[研究方向/实验室]</h3>
+                <p class="experience-time">[课题名称]</p>
+                <ul>
+                  <li>[成果/发表论文...]</li>
+                </ul>
+              </article>
+            </div>
+          </section>
+
+          <section class="preview-section" id="preview-honors-section">
+            <h2>获奖情况</h2>
+            <ul id="preview-honors">
+              <li>[奖项名称] ([获奖时间])</li>
+            </ul>
+          </section>
+
+          <section class="preview-section" id="preview-skills-section">
+            <h2>个人特长/技能</h2>
+            <ul id="preview-skills">
+              <li>[技能/特长...]</li>
+            </ul>
+          </section>
+
+          <section class="preview-section" id="preview-evaluation-section">
+            <h2>自我评价</h2>
+            <p id="preview-evaluation">[请填写自我评价...]</p>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="builder.js"></script>
+  </body>
+</html>
