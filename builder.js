@@ -513,7 +513,10 @@ avatarUpload.addEventListener('change', (e) => {
   }
 });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c6788e238ce52ca5c9f22699cbf4f04d6ff327ba
 // 文字颜色选择器事件监听器
 textColorInput.addEventListener("input", () => {
   const newTextColor = textColorInput.value;

@@ -1307,6 +1307,7 @@ input[type="color"]::-moz-color-swatch {
 }
 
 /* ===================================== */
+
 /* 模板 4: Creative Geometric (创意风) */
 /* 参考模板3的双栏布局，保留创意风视觉元素 */
 /* ===================================== */
@@ -1439,6 +1440,98 @@ input[type="color"]::-moz-color-swatch {
   line-height: 1.6;
 }
 
+
+
+
+/* 模板 4: Creative Geometric (创意几何) */
+/* 概念: 运用大胆的几何形状和 Z轴层叠，营造出强烈的视觉深度和设计感，适合设计、创意行业。 */
+/* ===================================== */
+
+.resume-template.creative {
+  font-family: "Poppins", sans-serif; /* 活泼、圆润的字体 */
+  background: #f4f4f4;
+  position: relative;
+  padding-top: 100px;
+}
+/* --- 顶部的巨大斜切色块 --- */
+.resume-template.creative::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px; /* 色块高度 */
+  background: var(--primary-color);
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 100%); /* 斜切 */
+  z-index: 0;
+}
+/* --- 头部信息悬浮在色块之上 --- */
+.resume-template.creative .preview-header {
+  border: none;
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  color: white;
+}
+.resume-template.creative #preview-name {
+  font-size: 3em;
+  color: var(--main-text-color);
+  font-weight: 700;
+  line-height: 1.1;
+  background: none;
+  text-shadow: none;
+  border: none;
+}
+.resume-template.creative .contact-info {
+  color: rgba(255, 255, 255, 0.9);
+}
+/* --- 模块标题背后有巨大的半透明数字/字母 --- */
+.resume-template.creative .preview-section {
+  position: relative;
+  z-index: 2;
+  padding-left: 20px;
+}
+.resume-template.creative .preview-section h2 {
+  font-size: 1.5em;
+  font-weight: 800;
+  color: #222;
+  border: none;
+  margin-left: 20px;
+}
+.resume-template.creative .preview-section h2::before {
+  content: attr(data-section-bg); /* JS 需要设置 data-section-bg 属性 */
+  position: absolute;
+  left: -20px;
+  top: -20px;
+  font-size: 5em;
+  font-weight: 900;
+  color: var(--primary-color);
+  opacity: 0.1;
+  z-index: -1;
+}
+.resume-template.creative .experience-detail {
+  border-left: 3px solid var(--primary-color);
+  padding-left: 15px;
+}
+
+.resume-template.creative {
+  /* 修复: 增加足够的顶部内边距，确保所有内容都在斜切色块下方开始。*/
+  padding-top: 220px;
+}
+/* 修复 1: 解决布局重叠问题 */
+.resume-template.creative .preview-section:first-of-type {
+  /* 增加足够的上边距，把第一个模块推到斜切头部的下方 */
+  margin-top: 150px;
+}
+
+/* 修复 2: 强制模块内的文字颜色为深色 */
+.resume-template.creative .preview-section,
+.resume-template.creative .preview-section h3,
+.resume-template.creative .preview-section p,
+.resume-template.creative .preview-section li {
+  /* 覆盖掉从头部继承的白色，确保可读性 */
+  color: var(--text-color-dark, #1f2937);
+}
 
 
 /* ===================================== */
@@ -1664,4 +1757,7 @@ input[type="color"]::-moz-color-swatch {
   text-align: center;
   padding-bottom: 5px;
   border-bottom: 1px solid #000;
+
 }
+
+
