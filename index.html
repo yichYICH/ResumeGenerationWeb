@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>在线简历生成器 - 轻松制作专业简历</title>
+    <link rel="stylesheet" href="index.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container">
+        <div class="nav-group">
+          <a href="index.html" class="logo">
+            <i class="ri-briefcase-line"></i>
+            <span class="logo-text">在线简历生成器</span>
+          </a>
+          <nav class="nav-links">
+            <a href="#" id="nav-template-btn" data-modal="template-modal"
+              >模板</a
+            >
+            <a href="#section-features" id="nav-features-btn">优势</a>
+            <a href="#" id="nav-help-btn" data-modal="help-modal">帮助</a>
+          </nav>
+        </div>
+        <div class="auth-buttons"></div>
+      </div>
+    </header>
+
+    <main class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <h1>轻松制作令人印象深刻的专业简历</h1>
+          <p>选择精美模板，填入你的经历，一键生成 PDF，助你斩获理想 Offer！</p>
+          <a href="builder.html" class="btn btn-primary btn-hero">
+            制作一份简历
+            <i class="ri-arrow-right-line"></i>
+          </a>
+        </div>
+        <div class="hero-image slider-container">
+          <div class="slider-wrapper" id="resume-slider">
+            <img
+              src="hero-resume-preview-1.png"
+              alt="简历模板预览 1"
+              class="slider-item active"
+              id="clickable-slide"
+            />
+            <img
+              src="hero-resume-preview-2.png"
+              alt="简历模板预览 2"
+              class="slider-item"
+            />
+            <img
+              src="hero-resume-preview-3.png"
+              alt="简历模板预览 3"
+              class="slider-item"
+            />
+            <img
+              src="hero-resume-preview-4.png"
+              alt="简历模板预览 4"
+              class="slider-item"
+            />
+            <img
+              src="hero-resume-preview-5.png"
+              alt="简历模板预览 5"
+              class="slider-item"
+            />
+            <img
+              src="hero-resume-preview-6.png"
+              alt="简历模板预览 6"
+              class="slider-item"
+            />
+          </div>
+
+          <button class="slide-btn slide-prev" id="slide-prev">
+            <i class="ri-arrow-left-s-line"></i>
+          </button>
+          <button class="slide-btn slide-next" id="slide-next">
+            <i class="ri-arrow-right-s-line"></i>
+          </button>
+
+          <div class="slider-dots" id="slider-dots-container"></div>
+        </div>
+      </div>
+    </main>
+
+    <section class="features-section" id="section-features">
+      <div class="container">
+        <h2>为什么选择我们？</h2>
+        <div class="feature-grid">
+          <div class="feature-item">
+            <i class="ri-paint-brush-line"></i>
+            <h3>海量精美模板</h3>
+            <p>风格多样，涵盖各行业，总有一款适合你。</p>
+          </div>
+          <div class="feature-item">
+            <i class="ri-edit-2-line"></i>
+            <h3>简单易用编辑器</h3>
+            <p>无需设计经验，拖拽、填写即可完成。</p>
+          </div>
+          <div class="feature-item">
+            <i class="ri-file-download-line"></i>
+            <h3>一键下载 PDF</h3>
+            <p>高质量输出，兼容性强，随时随地投递。</p>
+          </div>
+          <div class="feature-item">
+            <i class="ri-smartphone-line"></i>
+            <h3>完美响应式</h3>
+            <p>在任何设备上都能流畅使用，随时编辑。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer"></footer>
+
+    <div id="template-modal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="modal-close-btn" data-close-modal>
+          <i class="ri-close-line"></i>
+        </button>
+        <div class="modal-body">
+          <div class="template-previews-grid">
+            <a href="builder.html?template=1" class="template-link">
+              <img
+                src="hero-resume-preview-1.png"
+                alt="模板1"
+                class="preview-img"
+              />
+            </a>
+            <a href="builder.html?template=2" class="template-link">
+              <img
+                src="hero-resume-preview-2.png"
+                alt="模板2"
+                class="preview-img"
+              />
+            </a>
+            <a href="builder.html?template=3" class="template-link">
+              <img
+                src="hero-resume-preview-3.png"
+                alt="模板3"
+                class="preview-img"
+              />
+            </a>
+            <a href="builder.html?template=4" class="template-link">
+              <img
+                src="hero-resume-preview-4.png"
+                alt="模板4"
+                class="preview-img"
+              />
+            </a>
+            <a href="builder.html?template=5" class="template-link">
+              <img
+                src="hero-resume-preview-5.png"
+                alt="模板5"
+                class="preview-img"
+              />
+            </a>
+            <a href="builder.html?template=6" class="template-link">
+              <img
+                src="hero-resume-preview-6.png"
+                alt="模板6"
+                class="preview-img"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="help-modal" class="modal-overlay hidden">
+      <div class="modal-content">
+        <button class="modal-close-btn" data-close-modal>
+          <i class="ri-close-line"></i>
+        </button>
+        <div class="modal-body">
+          <h2 style="margin-bottom: 20px">隐私政策与服务条款</h2>
+          <p>
+            <strong>隐私政策概要:</strong>
+            我们致力于保护您的个人信息安全。您的简历数据仅存储在您的本地浏览器中,除非您明确点击“下载”或“保存”，否则我们不会将您的数据上传到任何服务器。我们不会收集您的敏感信息用于营销或出售给第三方。
+          </p>
+          <h3 style="margin-top: 20px">服务条款</h3>
+          <p>
+            <strong>用户内容:</strong>
+            您对您创建和输入的所有内容拥有所有权。
+          </p>
+          <p>
+            <strong>使用限制:</strong>
+            本工具仅供个人或商业用途的简历创建。禁止使用本工具创建非法、诽谤或侵权的内容。
+          </p>
+          <p>
+            <strong>免责声明:</strong>
+            我们不保证本工具能满足您所有的特定需求。本工具按“现状”提供，不含任何明示或暗示的保证。
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="index.js"></script>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-content">
+          <p>&copy; 2025 在线简历生成器. All rights reserved.</p>
+          <p class="footer-links">
+            <a href="#" id="footer-privacy-btn" data-modal="help-modal"
+              >隐私政策与服务条款</a
+            >
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
