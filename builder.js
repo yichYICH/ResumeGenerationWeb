@@ -189,7 +189,7 @@ function handleFormUpdate() {
     "<li>[请添加获奖情况]</li>",
     "preview-honors-section"
   );
-  previewSkills.className = 'skills-list'; // 添加skills-list类
+  previewSkills.className = "skills-list"; // 添加skills-list类
   updateListPreview(
     skillsContainer,
     previewSkills,
@@ -206,7 +206,7 @@ function updateSimplePreview(element, value, placeholder) {
   const hasValue = value && value.trim() !== "";
   if (hasValue) {
     // 将换行符转换为<br>标签以保留格式
-    const formattedValue = value.trim().replace(/\n/g, '<br>');
+    const formattedValue = value.trim().replace(/\n/g, "<br>");
     element.innerHTML = formattedValue;
   } else {
     element.innerHTML = placeholder;
@@ -221,8 +221,8 @@ function updateListPreview(
   sectionId
 ) {
   // 为技能列表添加特殊样式类
-  if (previewList.id === 'preview-skills') {
-    previewList.className = 'skills-list';
+  if (previewList.id === "preview-skills") {
+    previewList.className = "skills-list";
   }
   previewList.innerHTML = "";
   const items = container.querySelectorAll(".item-group");
@@ -241,7 +241,7 @@ function updateListPreview(
         const value = input.value;
         if (input.tagName === "TEXTAREA") {
           // textarea保留原始格式，只在两端trim多余空白
-          processedData[key] = value.replace(/^\s+|\s+$/g, '');
+          processedData[key] = value.replace(/^\s+|\s+$/g, "");
         } else {
           // 普通输入框进行trim
           processedData[key] = value.trim();
@@ -260,18 +260,18 @@ function updateListPreview(
 
 function formatDuties(dutiesText) {
   if (!dutiesText) return "<li>[职责描述...]</li>";
-  
+
   // 按换行符分割成段落，每个段落作为一个列表项
   return dutiesText
     .split(/\n(?!\s*\n)/) // 匹配单个换行符，保留空行作为分隔符
     .filter((paragraph) => {
       // 过滤掉只包含空白字符的段落
-      const cleaned = paragraph.replace(/\s+/g, '');
+      const cleaned = paragraph.replace(/\s+/g, "");
       return cleaned.length > 0;
     })
     .map((paragraph) => {
       // 对于每个段落，将其内部的换行符转换为<br>标签，然后包装成列表项
-      const formattedText = paragraph.trim().replace(/\n/g, '<br>');
+      const formattedText = paragraph.trim().replace(/\n/g, "<br>");
       return `<li>${formattedText}</li>`;
     })
     .join("");
@@ -353,26 +353,28 @@ form.addEventListener("click", (e) => {
 });
 
 // 删除进度功能
-deleteDataBtn.addEventListener("click", function() {
+deleteDataBtn.addEventListener("click", function () {
   // 创建变量存储confirm的返回值，确保逻辑清晰
-  const userConfirmed = confirm("确定要删除所有已保存的简历数据吗？此操作不可恢复！");
-  
+  const userConfirmed = confirm(
+    "确定要删除所有已保存的简历数据吗？此操作不可恢复！"
+  );
+
   // 只有当用户点击确定时才执行删除操作
   if (userConfirmed === true) {
     // 清除本地存储中的所有简历数据
     localStorage.removeItem(LOCAL_STORAGE_KEY);
     localStorage.removeItem("lastSaved");
-    
+
     // 重置表单
     form.reset();
-    
+
     // 重置动态添加的内容（教育、工作经历等）
     educationContainer.innerHTML = "";
     experienceContainer.innerHTML = "";
     researchContainer.innerHTML = "";
     honorsContainer.innerHTML = "";
     skillsContainer.innerHTML = "";
-    
+
     // 重置头像
     if (previewAvatar) {
       previewAvatar.style.display = "none";
@@ -382,7 +384,7 @@ deleteDataBtn.addEventListener("click", function() {
       avatarPreview.innerHTML = "";
       avatarPreview.style.display = "flex";
     }
-    
+
     // 重置预览区域内容
     previewName.textContent = "您的姓名";
     previewEmail.textContent = "邮箱";
@@ -390,11 +392,13 @@ deleteDataBtn.addEventListener("click", function() {
     previewSummary.textContent = "[请填写个人简介...]";
     previewEvaluation.textContent = "[请填写自我评价...]";
     previewEducation.innerHTML = "<li>[请填写教育背景]</li>";
-    previewExperience.innerHTML = "<article class='experience-detail'>[请添加实习经历]</article>";
-    previewResearch.innerHTML = "<article class='experience-detail'>[请添加科研经历]</article>";
+    previewExperience.innerHTML =
+      "<article class='experience-detail'>[请添加实习经历]</article>";
+    previewResearch.innerHTML =
+      "<article class='experience-detail'>[请添加科研经历]</article>";
     previewHonors.innerHTML = "<li>[请添加获奖情况]</li>";
     previewSkills.innerHTML = "<li>[请添加技能/特长]</li>";
-    
+
     // 显示成功消息
     alert("简历数据已成功删除");
   } else {
@@ -415,46 +419,48 @@ colorThemeInput.addEventListener("input", () => {
 });
 
 // 为字体按钮添加点击事件监听器
-const fontButtons = document.querySelectorAll('.font-button');
-fontButtons.forEach(button => {
-  button.addEventListener('click', () => {
-    const fontFamily = button.getAttribute('data-font');
-    document.documentElement.style.setProperty('--main-font-family', fontFamily);
+const fontButtons = document.querySelectorAll(".font-button");
+fontButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const fontFamily = button.getAttribute("data-font");
+    document.documentElement.style.setProperty(
+      "--main-font-family",
+      fontFamily
+    );
     preview.style.fontFamily = fontFamily;
     // 移除其他按钮的激活状态
-    fontButtons.forEach(btn => btn.classList.remove('active'));
+    fontButtons.forEach((btn) => btn.classList.remove("active"));
     // 添加当前按钮的激活状态
-    button.classList.add('active');
+    button.classList.add("active");
   });
 });
 
 // 头像上传事件处理
-avatarUpload.addEventListener('change', (e) => {
+avatarUpload.addEventListener("change", (e) => {
   const file = e.target.files[0];
   if (file) {
     const reader = new FileReader();
-    
-    reader.onload = function(event) {
+
+    reader.onload = function (event) {
       const imgUrl = event.target.result;
-      
+
       // 在编辑器中显示预览
       avatarPreview.innerHTML = `<img src="${imgUrl}" alt="预览" />`;
-      
+
       // 在简历预览中显示头像
       previewAvatar.src = imgUrl;
-      previewAvatar.style.display = 'block';
-      
+      previewAvatar.style.display = "block";
+
       // 保存到本地存储
       const storedData = localStorage.getItem(LOCAL_STORAGE_KEY);
       let data = storedData ? JSON.parse(storedData) : {};
       data.avatar = imgUrl;
       localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
     };
-    
+
     reader.readAsDataURL(file);
   }
 });
-
 
 // 文字颜色选择器事件监听器
 textColorInput.addEventListener("input", () => {
@@ -603,17 +609,19 @@ function saveToLocalStorage() {
   }
   data.primaryColor = colorThemeInput.value;
   // 从激活的字体按钮获取字体
-  const activeFontButton = document.querySelector('.font-button.active');
-  data.fontFamily = activeFontButton ? activeFontButton.getAttribute('data-font') : "Varela Round, sans-serif";
+  const activeFontButton = document.querySelector(".font-button.active");
+  data.fontFamily = activeFontButton
+    ? activeFontButton.getAttribute("data-font")
+    : "Varela Round, sans-serif";
   data.textColor = textColorInput.value;
   // 保存头像信息
   if (previewAvatar.src && previewAvatar.src !== window.location.href) {
     data.avatar = previewAvatar.src;
   }
-  data.template = 
+  data.template =
     document.querySelector(".template-selector button.active")?.dataset
       .template || "modern";
-  data.activeTab = 
+  data.activeTab =
     document.querySelector("#main-sidebar .sidebar-item.active")?.dataset
       .tabName || "content";
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(data));
@@ -627,26 +635,26 @@ function loadFromLocalStorage() {
   colorThemeInput.value = primaryColor;
   colorThemeDisplay.textContent = primaryColor.toUpperCase();
   document.documentElement.style.setProperty("--primary-color", primaryColor);
-  
+
   const fontFamily = data.fontFamily || "Varela Round, sans-serif";
   document.documentElement.style.setProperty("--main-font-family", fontFamily);
   preview.style.fontFamily = fontFamily;
   // 激活对应的字体按钮
-  const fontButtons = document.querySelectorAll('.font-button');
-  fontButtons.forEach(button => {
-    if (button.getAttribute('data-font') === fontFamily) {
-      button.classList.add('active');
+  const fontButtons = document.querySelectorAll(".font-button");
+  fontButtons.forEach((button) => {
+    if (button.getAttribute("data-font") === fontFamily) {
+      button.classList.add("active");
     }
   });
-  
+
   // 加载头像
   if (data.avatar) {
     previewAvatar.src = data.avatar;
-    previewAvatar.style.display = 'block';
+    previewAvatar.style.display = "block";
     // 同时在编辑器中显示预览
     avatarPreview.innerHTML = `<img src="${data.avatar}" alt="预览" />`;
   }
-  
+
   const textColor = data.textColor || "#333333";
   textColorInput.value = textColor;
   textColorDisplay.textContent = textColor.toUpperCase();

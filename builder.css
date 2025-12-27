@@ -11,7 +11,7 @@
   --text-color-dark: #1f2937;
   --text-color-light: #6b7280;
   --bg-color-white: #ffffff;
-  --main-font-family: 'Varela Round', sans-serif;
+  --main-font-family: "Varela Round", sans-serif;
   --main-text-color: #333333;
   --bg-color-light: #f9fafb; /* 画布背景 */
   --border-color: #e5e7eb;
@@ -288,8 +288,6 @@ legend {
   color: var(--text-color-dark);
 }
 
-
-
 /* 输入行布局 */
 .input-row {
   display: flex;
@@ -368,7 +366,7 @@ input[type="date"]:valid::before {
     background-image: none;
     padding-right: 12px;
   }
-  
+
   input[type="date"]::after {
     content: "📅";
     position: absolute;
@@ -378,7 +376,7 @@ input[type="date"]:valid::before {
     pointer-events: none;
     opacity: 0.6;
   }
-  
+
   input[type="date"]:focus::after {
     opacity: 1;
   }
@@ -446,7 +444,7 @@ textarea:focus {
   background: #f8f9fa;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 .settings-module:last-child {
   border-bottom: none;
@@ -489,7 +487,8 @@ textarea:focus {
 }
 
 /* 颜色与字体设置美化 */
-.color-picker-group, .font-picker-group {
+.color-picker-group,
+.font-picker-group {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -531,7 +530,7 @@ textarea:focus {
   background: var(--primary-color);
   cursor: pointer;
   border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #font-size-slider::-moz-range-thumb {
@@ -541,7 +540,7 @@ textarea:focus {
   background: var(--primary-color);
   cursor: pointer;
   border: 2px solid white;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #font-size-display {
@@ -554,12 +553,14 @@ textarea:focus {
   background-color: var(--bg-color-light);
 }
 
-.color-picker-group:hover, .font-picker-group:hover {
+.color-picker-group:hover,
+.font-picker-group:hover {
   border-color: var(--primary-color);
   box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
 }
 
-.color-picker-group label, .font-picker-group label {
+.color-picker-group label,
+.font-picker-group label {
   font-weight: 500;
   min-width: 60px;
   color: var(--text-color-dark);
@@ -605,7 +606,8 @@ input[type="color"]::-moz-color-swatch {
 }
 
 /* 颜色代码输入框样式 */
-#color-theme-display, #text-color-display {
+#color-theme-display,
+#text-color-display {
   font-family: "monospace";
   font-size: 14px;
   font-weight: 600;
@@ -618,7 +620,8 @@ input[type="color"]::-moz-color-swatch {
   text-align: center;
 }
 
-#color-theme-display:focus, #text-color-display:focus {
+#color-theme-display:focus,
+#text-color-display:focus {
   border-color: var(--primary-color);
   outline: none;
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
@@ -820,7 +823,11 @@ input[type="color"]::-moz-color-swatch {
   padding-bottom: 15px;
   margin-bottom: 0;
   text-align: center;
-  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(59, 130, 246, 0.02) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.05) 0%,
+    rgba(59, 130, 246, 0.02) 100%
+  );
   padding-top: 15px;
   border-radius: 8px 8px 0 0;
 }
@@ -851,11 +858,11 @@ input[type="color"]::-moz-color-swatch {
     gap: 20px;
     text-align: center;
   }
-  
+
   .name-contact-section {
     text-align: center;
   }
-  
+
   .contact-row {
     justify-content: center;
   }
@@ -914,7 +921,7 @@ input[type="color"]::-moz-color-swatch {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .avatar-container {
     margin-left: 0;
     margin-top: 15px;
@@ -965,7 +972,7 @@ input[type="color"]::-moz-color-swatch {
 }
 
 .preview-section h2::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -2px;
   left: 0;
@@ -1438,7 +1445,7 @@ input[type="color"]::-moz-color-swatch {
   text-align: center;
   width: 20px;
   flex-shrink: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 0.85em;
   opacity: 0.8;
   display: flex;
@@ -1449,7 +1456,7 @@ input[type="color"]::-moz-color-swatch {
 }
 
 .contact-divider::before {
-  content: '';
+  content: "";
   position: absolute;
   height: 60%;
   width: 1px;
@@ -1480,7 +1487,7 @@ input[type="color"]::-moz-color-swatch {
 
 /* 联系方式图标 */
 #resume-preview #preview-email-display::before {
-  content: '✉️';
+  content: "✉️";
   position: absolute;
   left: 0;
   top: 50%;
@@ -1489,7 +1496,7 @@ input[type="color"]::-moz-color-swatch {
 }
 
 #resume-preview #preview-phone-display::before {
-  content: '📞';
+  content: "📞";
   position: absolute;
   left: 0;
   top: 50%;
@@ -1498,7 +1505,7 @@ input[type="color"]::-moz-color-swatch {
 }
 
 #resume-preview #preview-birthday-display::before {
-  content: '🎂';
+  content: "🎂";
   position: absolute;
   left: 0;
   top: 50%;
@@ -1507,7 +1514,7 @@ input[type="color"]::-moz-color-swatch {
 }
 
 #resume-preview #preview-hometown-display::before {
-  content: '📍';
+  content: "📍";
   position: absolute;
   left: 0;
   top: 50%;

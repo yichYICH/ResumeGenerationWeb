@@ -83,7 +83,12 @@
               <input type="text" name="name" placeholder="姓名" required />
               <div class="input-row">
                 <div class="input-half">
-                  <input type="email" name="email" placeholder="邮箱" required />
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="邮箱"
+                    required
+                  />
                 </div>
                 <div class="input-half">
                   <input type="tel" name="phone" placeholder="电话" />
@@ -283,51 +288,204 @@
             <div class="color-picker-group">
               <label for="color-theme">主色调:</label>
               <input type="color" id="color-theme" value="#3B82F6" />
-              <input type="text" id="color-theme-display" value="#3B82F6" maxlength="7" size="7" placeholder="#3B82F6" />
+              <input
+                type="text"
+                id="color-theme-display"
+                value="#3B82F6"
+                maxlength="7"
+                size="7"
+                placeholder="#3B82F6"
+              />
             </div>
             <div class="font-picker-group">
               <label>功能字体:</label>
-              <div class="font-scrollable-container" id="font-scrollable-container">
-                <div class="font-button active" data-font="Varela Round, sans-serif" style="font-family: Varela Round, sans-serif;">Varela Round</div>
+              <div
+                class="font-scrollable-container"
+                id="font-scrollable-container"
+              >
+                <div
+                  class="font-button active"
+                  data-font="Varela Round, sans-serif"
+                  style="font-family: Varela Round, sans-serif"
+                >
+                  Varela Round
+                </div>
                 <!-- 系统字体 -->
-                <div class="font-button" data-font="SimSun, serif" style="font-family: SimSun, serif;">宋体</div>
-                <div class="font-button" data-font="SimHei, sans-serif" style="font-family: SimHei, sans-serif;">黑体</div>
-                <div class="font-button" data-font="Microsoft YaHei, sans-serif" style="font-family: Microsoft YaHei, sans-serif;">微软雅黑</div>
-                <div class="font-button" data-font="KaiTi, serif" style="font-family: KaiTi, serif;">楷体</div>
-                <div class="font-button" data-font="FangSong, serif" style="font-family: FangSong, serif;">仿宋</div>
+                <div
+                  class="font-button"
+                  data-font="SimSun, serif"
+                  style="font-family: SimSun, serif"
+                >
+                  宋体
+                </div>
+                <div
+                  class="font-button"
+                  data-font="SimHei, sans-serif"
+                  style="font-family: SimHei, sans-serif"
+                >
+                  黑体
+                </div>
+                <div
+                  class="font-button"
+                  data-font="Microsoft YaHei, sans-serif"
+                  style="font-family: Microsoft YaHei, sans-serif"
+                >
+                  微软雅黑
+                </div>
+                <div
+                  class="font-button"
+                  data-font="KaiTi, serif"
+                  style="font-family: KaiTi, serif"
+                >
+                  楷体
+                </div>
+                <div
+                  class="font-button"
+                  data-font="FangSong, serif"
+                  style="font-family: FangSong, serif"
+                >
+                  仿宋
+                </div>
                 <!-- 无衬线字体 -->
-                <div class="font-button" data-font="'PingFang SC', sans-serif" style="font-family: 'PingFang SC', sans-serif;">苹方</div>
-                <div class="font-button" data-font="'Helvetica Neue', Helvetica, Arial, sans-serif" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Helvetica</div>
-                <div class="font-button" data-font="'Roboto', 'Helvetica Neue', sans-serif" style="font-family: 'Roboto', 'Helvetica Neue', sans-serif;">Roboto</div>
-                <div class="font-button" data-font="'Segoe UI', 'Microsoft YaHei', sans-serif" style="font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;">Segoe UI</div>
-                <div class="font-button" data-font="'Open Sans', sans-serif" style="font-family: 'Open Sans', sans-serif;">Open Sans</div>
+                <div
+                  class="font-button"
+                  data-font="'PingFang SC', sans-serif"
+                  style="font-family: 'PingFang SC', sans-serif"
+                >
+                  苹方
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Helvetica Neue', Helvetica, Arial, sans-serif"
+                  style="
+                    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                  "
+                >
+                  Helvetica
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Roboto', 'Helvetica Neue', sans-serif"
+                  style="font-family: 'Roboto', 'Helvetica Neue', sans-serif"
+                >
+                  Roboto
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Segoe UI', 'Microsoft YaHei', sans-serif"
+                  style="font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif"
+                >
+                  Segoe UI
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Open Sans', sans-serif"
+                  style="font-family: 'Open Sans', sans-serif"
+                >
+                  Open Sans
+                </div>
                 <!-- 衬线字体 -->
-                <div class="font-button" data-font="'Times New Roman', Times, serif" style="font-family: 'Times New Roman', Times, serif;">Times New Roman</div>
-                <div class="font-button" data-font="'Georgia', serif" style="font-family: 'Georgia', serif;">Georgia</div>
-                <div class="font-button" data-font="'Computer Modern', 'Times New Roman', serif" style="font-family: 'Computer Modern', 'Times New Roman', serif;">Computer Modern</div>
+                <div
+                  class="font-button"
+                  data-font="'Times New Roman', Times, serif"
+                  style="font-family: 'Times New Roman', Times, serif"
+                >
+                  Times New Roman
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Georgia', serif"
+                  style="font-family: 'Georgia', serif"
+                >
+                  Georgia
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Computer Modern', 'Times New Roman', serif"
+                  style="
+                    font-family: 'Computer Modern', 'Times New Roman', serif;
+                  "
+                >
+                  Computer Modern
+                </div>
                 <!-- 等宽字体 -->
-                <div class="font-button" data-font="'Courier New', Courier, monospace" style="font-family: 'Courier New', Courier, monospace;">Courier New</div>
-                <div class="font-button" data-font="'Consolas', 'Monaco', monospace" style="font-family: 'Consolas', 'Monaco', monospace;">Consolas</div>
+                <div
+                  class="font-button"
+                  data-font="'Courier New', Courier, monospace"
+                  style="font-family: 'Courier New', Courier, monospace"
+                >
+                  Courier New
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Consolas', 'Monaco', monospace"
+                  style="font-family: 'Consolas', 'Monaco', monospace"
+                >
+                  Consolas
+                </div>
                 <!-- 创意字体 -->
-                <div class="font-button" data-font="'Montserrat', sans-serif" style="font-family: 'Montserrat', sans-serif;">Montserrat</div>
-                <div class="font-button" data-font="'Playfair Display', serif" style="font-family: 'Playfair Display', serif;">Playfair Display</div>
-                <div class="font-button" data-font="'Lato', sans-serif" style="font-family: 'Lato', sans-serif;">Lato</div>
-                <div class="font-button" data-font="'Poppins', sans-serif" style="font-family: 'Poppins', sans-serif;">Poppins</div>
+                <div
+                  class="font-button"
+                  data-font="'Montserrat', sans-serif"
+                  style="font-family: 'Montserrat', sans-serif"
+                >
+                  Montserrat
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Playfair Display', serif"
+                  style="font-family: 'Playfair Display', serif"
+                >
+                  Playfair Display
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Lato', sans-serif"
+                  style="font-family: 'Lato', sans-serif"
+                >
+                  Lato
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Poppins', sans-serif"
+                  style="font-family: 'Poppins', sans-serif"
+                >
+                  Poppins
+                </div>
               </div>
             </div>
             <div class="color-picker-group">
               <label for="text-color">文字颜色:</label>
               <input type="color" id="text-color" value="#333333" />
-              <input type="text" id="text-color-display" value="#333333" maxlength="7" size="7" placeholder="#333333" />
+              <input
+                type="text"
+                id="text-color-display"
+                value="#333333"
+                maxlength="7"
+                size="7"
+                placeholder="#333333"
+              />
             </div>
             <div class="font-size-group">
               <label for="font-size-slider">字体大小:</label>
-              <input type="range" id="font-size-slider" min="12" max="24" value="16" step="1" />
-              <input type="text" id="font-size-display" value="16px" maxlength="6" size="6" readonly />
+              <input
+                type="range"
+                id="font-size-slider"
+                min="12"
+                max="24"
+                value="16"
+                step="1"
+              />
+              <input
+                type="text"
+                id="font-size-display"
+                value="16px"
+                maxlength="6"
+                size="6"
+                readonly
+              />
             </div>
           </section>
-
-
         </div>
 
         <div class="tab-content hidden" id="tab-content-tools">
@@ -384,7 +542,12 @@
                 </div>
               </div>
               <div class="avatar-container">
-                <img id="preview-avatar" class="preview-avatar" src="" alt="个人头像" />
+                <img
+                  id="preview-avatar"
+                  class="preview-avatar"
+                  src=""
+                  alt="个人头像"
+                />
               </div>
             </div>
           </header>
@@ -447,7 +610,11 @@
               </ul>
             </section>
 
-            <section class="preview-section" id="preview-evaluation-section" style="grid-column: 1 / -1;">
+            <section
+              class="preview-section"
+              id="preview-evaluation-section"
+              style="grid-column: 1 / -1"
+            >
               <h2>自我评价</h2>
               <p id="preview-evaluation">[请填写自我评价...]</p>
             </section>
