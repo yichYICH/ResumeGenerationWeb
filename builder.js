@@ -513,7 +513,6 @@ avatarUpload.addEventListener('change', (e) => {
   }
 });
 
-
 // 文字颜色选择器事件监听器
 textColorInput.addEventListener("input", () => {
   const newTextColor = textColorInput.value;
