@@ -1,0 +1,611 @@
+/* ===================================== */
+/* 全局样式和变量 */
+/* ===================================== */
+:root {
+  --primary-color: #3b82f6;
+  --primary-hover-color: #2563eb;
+  --secondary-color: #6c757d;
+  --secondary-hover-color: #5a6268;
+  --text-color-dark: #1f2937;
+  --text-color-light: #4b5563;
+  --bg-color-light: #f9fafb;
+  --bg-color-white: #ffffff;
+  --border-color: #e5e7eb;
+  --font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --max-width: 1200px;
+  --border-radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  line-height: 1.6;
+  color: var(--text-color-dark);
+  background-color: var(--bg-color-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--primary-hover-color);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  font-size: 16px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover-color);
+  color: white;
+}
+
+.btn-hero {
+  font-size: 1.1em;
+  padding: 15px 30px;
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+/* ===================================== */
+/* 导航栏 (Navbar) 样式 */
+/* ===================================== */
+.navbar {
+  background-color: var(--bg-color-white);
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar .nav-group {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.navbar .logo {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--text-color-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.navbar .logo i {
+  color: var(--primary-color);
+  font-size: 1.2em;
+}
+
+/* Logo 文本的风格化 */
+.navbar .logo .logo-text {
+  font-family: "Varela Round", sans-serif;
+  font-size: 1.3em;
+  font-weight: 1000;
+  background: linear-gradient(90deg, #00c4cc 0%, #5340ff 60%, #7a00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .nav-links a {
+  margin-left: 0;
+  margin-right: 30px;
+  color: var(--text-color-light);
+  font-weight: 500;
+  position: relative;
+  padding: 5px 0;
+}
+
+.navbar .nav-links a:hover {
+  color: var(--primary-color);
+}
+
+/* 导航链接悬停美化：底部线条效果 */
+.navbar .nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary-color);
+  transition: width 0.3s ease-in-out;
+}
+.navbar .nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ===================================== */
+/* 英雄区域 (Hero Section) 样式 - 保持不变 */
+/* ===================================== */
+.hero-section {
+  background-color: var(--bg-color-light);
+  padding: 80px 0;
+  text-align: center;
+}
+
+.hero-section .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap-reverse;
+}
+
+.hero-content {
+  flex: 1;
+  min-width: 300px;
+  text-align: left;
+}
+
+.hero-content h1 {
+  font-size: 3.2em;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  color: var(--text-color-dark);
+}
+
+.hero-content p {
+  font-size: 1.3em;
+  color: var(--text-color-light);
+  margin-bottom: 30px;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 210 / 297;
+  height: auto;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+  background-color: var(--bg-color-white);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  display: block;
+}
+
+/* ===================================== */
+/* 特性区域 (Features Section) 样式 - 保持不变 */
+/* ===================================== */
+.features-section {
+  padding: 80px 0;
+  text-align: center;
+  background-color: var(--bg-color-white);
+}
+
+.features-section h2 {
+  font-size: 2.5em;
+  font-weight: 700;
+  margin-bottom: 50px;
+  color: var(--text-color-dark);
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.feature-item {
+  background-color: var(--bg-color-white);
+  padding: 30px;
+  border-radius: var(--border-radius);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.feature-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.feature-item i {
+  font-size: 3em;
+  color: var(--primary-color);
+  margin-bottom: 20px;
+}
+
+.feature-item h3 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--text-color-dark);
+}
+
+.feature-item p {
+  color: var(--text-color-light);
+  font-size: 0.95em;
+}
+
+/* ===================================== */
+/* 底部 (Footer) 样式 - 保持不变 */
+/* ===================================== */
+.footer {
+  background-color: var(--text-color-dark);
+  color: white;
+  padding: 40px 0;
+  font-size: 0.9em;
+}
+
+.footer .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.footer p {
+  margin: 0;
+}
+
+.footer-links a {
+  color: #a0aec0;
+  margin-left: 20px;
+}
+
+.footer-links a:hover {
+  color: var(--primary-color);
+}
+
+/* ===================================== */
+/* 响应式设计 */
+/* ===================================== */
+@media (max-width: 900px) {
+  /* 调整导航栏在手机端的显示 */
+  .navbar .container {
+    justify-content: space-between;
+  }
+  .navbar .nav-group {
+    gap: 20px;
+  }
+  .navbar .nav-links {
+    display: none;
+  }
+
+  .navbar .logo {
+    font-size: 1.3em;
+  }
+  .navbar .logo .logo-text {
+    font-size: 1.2em;
+  }
+
+  .hero-section {
+    padding: 60px 0;
+  }
+  .hero-section .container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-content {
+    text-align: center;
+  }
+  .hero-content h1 {
+    font-size: 2.5em;
+  }
+  .hero-content p {
+    font-size: 1.1em;
+  }
+  .hero-image {
+    max-width: 80%;
+  }
+
+  .features-section {
+    padding: 60px 0;
+  }
+  .features-section h2 {
+    font-size: 2em;
+    margin-bottom: 40px;
+  }
+
+  .footer .container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-links {
+    margin-top: 15px;
+  }
+  .footer-links a {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar .auth-buttons .btn {
+    padding: 6px 12px;
+    font-size: 0.8em;
+  }
+  .hero-content h1 {
+    font-size: 2em;
+  }
+  .hero-content p {
+    font-size: 1em;
+  }
+  .btn-hero {
+    font-size: 1em;
+    padding: 12px 25px;
+  }
+}
+
+/* ===================================== */
+/* 轮播图 (Slider) 样式 */
+/* ===================================== */
+
+.hero-image {
+  height: 600px;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.slider-container {
+  padding: 20px;
+}
+
+.slider-wrapper {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+  position: relative;
+}
+
+.slider-item {
+  min-width: 100%;
+  height: auto;
+  border-radius: var(--border-radius);
+  display: block;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.slider-item.active {
+  opacity: 1;
+}
+
+/* 左右切换按钮样式 */
+.slide-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  color: var(--text-color-dark);
+  font-size: 2em;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 2;
+}
+
+.slider-container:hover .slide-btn {
+  opacity: 1;
+}
+
+.slide-prev {
+  left: 0;
+  margin-left: 0px;
+}
+
+.slide-next {
+  right: 0;
+  margin-right: 0px;
+}
+
+.slide-btn:hover {
+  background: var(--primary-color);
+  color: white;
+}
+
+/* 底部指示点样式 */
+.slider-dots {
+  position: absolute;
+  bottom: 35px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px solid var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.dot.active {
+  background-color: var(--primary-color);
+  transform: scale(1.2);
+}
+
+/* 调整手机端按钮位置，防止移出屏幕 */
+@media (max-width: 600px) {
+  .slide-prev {
+    left: 10px;
+    margin-left: 0;
+  }
+  .slide-next {
+    right: 10px;
+    margin-right: 0;
+  }
+  .slide-btn {
+    opacity: 1;
+    width: 35px;
+    height: 35px;
+    font-size: 1.5em;
+  }
+  .slider-dots {
+    bottom: 25px;
+  }
+}
+
+/* ===================================== */
+/* 弹窗 (Modal) 样式 */
+/* ===================================== */
+
+/* 遮罩层 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+/* 弹窗主体 */
+.modal-content {
+  background-color: var(--bg-color-white);
+  padding: 30px;
+  border-radius: var(--border-radius);
+  max-width: 90vw;
+  max-height: 90vh;
+  position: relative;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  overflow-y: auto;
+}
+
+/* 关闭按钮 */
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: var(--text-color-light);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+  z-index: 1001;
+}
+
+.modal-close-btn:hover {
+  background-color: var(--bg-color-light);
+  color: var(--text-color-dark);
+}
+
+/* 模板预览网格布局 */
+.template-previews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.preview-img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.preview-img:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+/* 确保主内容区域可点击以弹出弹窗 */
+.hero-image {
+  cursor: pointer;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+}
+
+/* 针对小屏幕优化，如果空间不足，居中对齐 */
+@media screen and (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .footer-links {
+    margin-top: 10px;
+  }
+}

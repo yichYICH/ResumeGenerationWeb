@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>在线简历编辑器</title>
+
+    <link rel="stylesheet" href="builder.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="container">
+        <div class="nav-group">
+          <a href="index.html" class="logo">
+            <i class="ri-briefcase-line"></i>
+            <span class="logo-text">在线简历生成器</span>
+          </a>
+        </div>
+        <div class="header-actions">
+          <button class="header-btn" id="save-data-btn">
+            <i class="ri-save-line"></i> 保存进度
+          </button>
+          <button class="header-btn" id="delete-data-btn">
+            <i class="ri-delete-bin-line"></i> 删除进度
+          </button>
+          <button class="btn btn-primary" id="download-pdf-btn">
+            <i class="ri-download-line"></i> 导出
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <div id="app-container" class="app-container-grid">
+      <nav id="main-sidebar">
+        <div
+          class="sidebar-item active"
+          data-content-id="tab-content-content"
+          data-tab-name="content"
+        >
+          <i class="ri-edit-box-line"></i>
+          <span>内容</span>
+        </div>
+        <div
+          class="sidebar-item"
+          data-content-id="tab-content-style"
+          data-tab-name="style"
+        >
+          <i class="ri-palette-line"></i>
+          <span>样式</span>
+        </div>
+        <div
+          class="sidebar-item"
+          data-content-id="tab-content-tools"
+          data-tab-name="tools"
+        >
+          <i class="ri-tools-line"></i>
+          <span>工具</span>
+        </div>
+        <div class="sidebar-item" style="margin-top: auto" id="zoom-out-btn">
+          <i class="ri-zoom-out-line"></i>
+          <span>缩小</span>
+        </div>
+        <div class="sidebar-item" id="zoom-in-btn">
+          <i class="ri-zoom-in-line"></i>
+          <span>放大</span>
+        </div>
+      </nav>
+
+      <aside id="editor-panel">
+        <div class="tab-content" id="tab-content-content">
+          <form id="resume-form">
+            <fieldset>
+              <legend>基本信息</legend>
+              <input type="text" name="name" placeholder="姓名" required />
+              <div class="input-row">
+                <div class="input-half">
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="邮箱"
+                    required
+                  />
+                </div>
+                <div class="input-half">
+                  <input type="tel" name="phone" placeholder="电话" />
+                </div>
+              </div>
+              <div class="input-row">
+                <div class="input-half">
+                  <input type="date" name="birthday" placeholder="生日" />
+                </div>
+                <div class="input-half">
+                  <input type="text" name="hometown" placeholder="籍贯" />
+                </div>
+              </div>
+              <div class="avatar-upload-group">
+                <label for="avatar-upload">个人头像:</label>
+                <input type="file" id="avatar-upload" accept="image/*" />
+                <div class="avatar-preview" id="avatar-preview"></div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>个人简介</legend>
+              <textarea
+                name="summary"
+                rows="5"
+                placeholder="简要介绍您的核心优势..."
+              ></textarea>
+              <div class="char-counter" id="summary-char-counter">0 / 500</div>
+            </fieldset>
+
+            <fieldset id="education-container">
+              <legend>教育经历</legend>
+              <div class="item-group">
+                <input type="text" name="school[]" placeholder="学校名称" />
+                <input
+                  type="text"
+                  name="degree[]"
+                  placeholder="学历 (如：硕士, 学士)"
+                />
+                <input type="text" name="major[]" placeholder="专业" />
+                <input
+                  type="text"
+                  name="edu_time[]"
+                  placeholder="起止时间 (如：2020-09 - 2024-06)"
+                />
+                <button type="button" class="btn btn-danger remove-item-btn">
+                  <i class="ri-delete-bin-line"></i> 删除此项
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-education-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加教育经历
+            </button>
+
+            <fieldset id="experience-container">
+              <legend>实习/工作经历</legend>
+              <div class="item-group">
+                <input
+                  type="text"
+                  name="company[]"
+                  placeholder="公司/组织名称"
+                />
+                <input type="text" name="position[]" placeholder="职位" />
+                <input type="text" name="exp_time[]" placeholder="起止时间" />
+                <textarea
+                  name="duties[]"
+                  rows="4"
+                  placeholder="职责描述 (每行一条)"
+                ></textarea>
+                <button type="button" class="btn btn-danger remove-item-btn">
+                  <i class="ri-delete-bin-line"></i> 删除此项
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-experience-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加实习经历
+            </button>
+
+            <fieldset id="research-container">
+              <legend>科研经历</legend>
+              <div class="item-group">
+                <input
+                  type="text"
+                  name="research_field[]"
+                  placeholder="研究方向/实验室"
+                />
+                <input
+                  type="text"
+                  name="research_topic[]"
+                  placeholder="课题名称"
+                />
+                <textarea
+                  name="research_pubs[]"
+                  rows="3"
+                  placeholder="成果/发表论文 (选填)"
+                ></textarea>
+                <button type="button" class="btn btn-danger remove-item-btn">
+                  <i class="ri-delete-bin-line"></i> 删除此项
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-research-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加科研经历
+            </button>
+
+            <fieldset id="honors-container">
+              <legend>获奖情况</legend>
+              <div class="item-group">
+                <input
+                  type="text"
+                  name="honor_name[]"
+                  placeholder="奖项名称 (如：国家奖学金)"
+                />
+                <input
+                  type="text"
+                  name="honor_time[]"
+                  placeholder="获奖时间 (如：2023-10)"
+                />
+                <button type="button" class="btn btn-danger remove-item-btn">
+                  <i class="ri-delete-bin-line"></i> 删除此项
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-honor-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加奖项
+            </button>
+
+            <fieldset id="skills-container">
+              <legend>个人特长/技能</legend>
+              <div class="item-group item-group-skill">
+                <input
+                  type="text"
+                  name="skill_text[]"
+                  placeholder="技能/特长 (如：精通 Python)"
+                />
+                <button
+                  type="button"
+                  class="btn btn-danger remove-item-btn remove-skill-btn"
+                >
+                  <i class="ri-delete-bin-line"></i>
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-skill-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加技能
+            </button>
+
+            <fieldset>
+              <legend>自我评价</legend>
+              <textarea
+                name="evaluation"
+                rows="5"
+                placeholder="总结您的职业素养和求职意愿..."
+              ></textarea>
+              <div class="char-counter" id="evaluation-char-counter">
+                0 / 500
+              </div>
+            </fieldset>
+
+            <fieldset id="certifications-container">
+              <legend>证书</legend>
+              <div class="item-group">
+                <input
+                  type="text"
+                  name="cert_name[]"
+                  placeholder="证书名称 (如：CET-6)"
+                />
+                <input
+                  type="text"
+                  name="cert_date[]"
+                  placeholder="获取时间 (如：2023-06)"
+                />
+                <button type="button" class="btn btn-danger remove-item-btn">
+                  <i class="ri-delete-bin-line"></i> 删除此项
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-certification-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加证书
+            </button>
+
+            <fieldset id="languages-container">
+              <legend>语言能力</legend>
+              <div class="item-group">
+                <input
+                  type="text"
+                  name="lang_name[]"
+                  placeholder="语言 (如：英语)"
+                />
+                <input
+                  type="text"
+                  name="lang_level[]"
+                  placeholder="熟练程度 (如：精通)"
+                />
+                <button type="button" class="btn btn-danger remove-item-btn">
+                  <i class="ri-delete-bin-line"></i> 删除此项
+                </button>
+              </div>
+            </fieldset>
+            <button
+              type="button"
+              id="add-language-btn"
+              class="btn btn-secondary-add"
+            >
+              <i class="ri-add-line"></i> 添加语言能力
+            </button>
+          </form>
+        </div>
+
+        <div class="tab-content hidden" id="tab-content-style">
+          <section class="settings-module">
+            <h3>简历模板 (6个)</h3>
+            <div class="template-selector">
+              <button data-template="modern" class="active">现代风</button>
+              <button data-template="classic">简约风</button>
+              <button data-template="professional">专业风</button>
+              <button data-template="creative">创意风</button>
+              <button data-template="minimal">极简风</button>
+              <button data-template="academic">学术风</button>
+            </div>
+          </section>
+
+          <section class="settings-module">
+            <h3>颜色与字体</h3>
+            <div class="color-picker-group">
+              <label for="color-theme">主色调:</label>
+              <input type="color" id="color-theme" value="#3B82F6" />
+              <input
+                type="text"
+                id="color-theme-display"
+                value="#3B82F6"
+                maxlength="7"
+                size="7"
+                placeholder="#3B82F6"
+              />
+            </div>
+            <div class="font-picker-group">
+              <label>功能字体:</label>
+              <div
+                class="font-scrollable-container"
+                id="font-scrollable-container"
+              >
+                <div
+                  class="font-button active"
+                  data-font="Varela Round, sans-serif"
+                  style="font-family: Varela Round, sans-serif"
+                >
+                  Varela Round
+                </div>
+                <!-- 系统字体 -->
+                <div
+                  class="font-button"
+                  data-font="SimSun, serif"
+                  style="font-family: SimSun, serif"
+                >
+                  宋体
+                </div>
+                <div
+                  class="font-button"
+                  data-font="SimHei, sans-serif"
+                  style="font-family: SimHei, sans-serif"
+                >
+                  黑体
+                </div>
+                <div
+                  class="font-button"
+                  data-font="Microsoft YaHei, sans-serif"
+                  style="font-family: Microsoft YaHei, sans-serif"
+                >
+                  微软雅黑
+                </div>
+                <div
+                  class="font-button"
+                  data-font="KaiTi, serif"
+                  style="font-family: KaiTi, serif"
+                >
+                  楷体
+                </div>
+                <div
+                  class="font-button"
+                  data-font="FangSong, serif"
+                  style="font-family: FangSong, serif"
+                >
+                  仿宋
+                </div>
+                <!-- 无衬线字体 -->
+                <div
+                  class="font-button"
+                  data-font="'PingFang SC', sans-serif"
+                  style="font-family: 'PingFang SC', sans-serif"
+                >
+                  苹方
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Helvetica Neue', Helvetica, Arial, sans-serif"
+                  style="
+                    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+                  "
+                >
+                  Helvetica
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Roboto', 'Helvetica Neue', sans-serif"
+                  style="font-family: 'Roboto', 'Helvetica Neue', sans-serif"
+                >
+                  Roboto
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Segoe UI', 'Microsoft YaHei', sans-serif"
+                  style="font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif"
+                >
+                  Segoe UI
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Open Sans', sans-serif"
+                  style="font-family: 'Open Sans', sans-serif"
+                >
+                  Open Sans
+                </div>
+                <!-- 衬线字体 -->
+                <div
+                  class="font-button"
+                  data-font="'Times New Roman', Times, serif"
+                  style="font-family: 'Times New Roman', Times, serif"
+                >
+                  Times New Roman
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Georgia', serif"
+                  style="font-family: 'Georgia', serif"
+                >
+                  Georgia
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Computer Modern', 'Times New Roman', serif"
+                  style="
+                    font-family: 'Computer Modern', 'Times New Roman', serif;
+                  "
+                >
+                  Computer Modern
+                </div>
+                <!-- 等宽字体 -->
+                <div
+                  class="font-button"
+                  data-font="'Courier New', Courier, monospace"
+                  style="font-family: 'Courier New', Courier, monospace"
+                >
+                  Courier New
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Consolas', 'Monaco', monospace"
+                  style="font-family: 'Consolas', 'Monaco', monospace"
+                >
+                  Consolas
+                </div>
+                <!-- 创意字体 -->
+                <div
+                  class="font-button"
+                  data-font="'Montserrat', sans-serif"
+                  style="font-family: 'Montserrat', sans-serif"
+                >
+                  Montserrat
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Playfair Display', serif"
+                  style="font-family: 'Playfair Display', serif"
+                >
+                  Playfair Display
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Lato', sans-serif"
+                  style="font-family: 'Lato', sans-serif"
+                >
+                  Lato
+                </div>
+                <div
+                  class="font-button"
+                  data-font="'Poppins', sans-serif"
+                  style="font-family: 'Poppins', sans-serif"
+                >
+                  Poppins
+                </div>
+              </div>
+            </div>
+            <div class="color-picker-group">
+              <label for="text-color">文字颜色:</label>
+              <input type="color" id="text-color" value="#333333" />
+              <input
+                type="text"
+                id="text-color-display"
+                value="#333333"
+                maxlength="7"
+                size="7"
+                placeholder="#333333"
+              />
+            </div>
+            <div class="font-size-group">
+              <label for="font-size-slider">字体大小:</label>
+              <input
+                type="range"
+                id="font-size-slider"
+                min="12"
+                max="24"
+                value="16"
+                step="1"
+              />
+              <input
+                type="text"
+                id="font-size-display"
+                value="16px"
+                maxlength="6"
+                size="6"
+                readonly
+              />
+            </div>
+          </section>
+        </div>
+
+        <div class="tab-content hidden" id="tab-content-tools">
+          <section class="settings-module">
+            <h3>全局查找与替换</h3>
+            <p>在您简历的所有文本框中查找并替换词语。</p>
+            <input type="text" id="find-input" placeholder="查找内容" />
+            <input
+              type="text"
+              id="replace-input"
+              placeholder="替换为"
+              style="margin-top: 5px"
+            />
+            <button
+              class="btn btn-primary"
+              id="find-replace-btn"
+              style="width: 100%; margin-top: 10px"
+            >
+              <i class="ri-find-replace-line"></i> 全部替换
+            </button>
+          </section>
+
+          <section class="settings-module">
+            <h3>数据备份与恢复</h3>
+            <p>将您的简历数据导出为 JSON 文件，或从文件恢复。</p>
+            <div class="tool-btn-group">
+              <button
+                class="btn btn-secondary-add"
+                id="export-json-btn"
+                style="width: 100%; margin-bottom: 10px"
+              >
+                <i class="ri-download-2-line"></i> 导出数据 (JSON)
+              </button>
+              <button
+                class="btn btn-secondary-add"
+                id="import-json-btn"
+                style="width: 100%"
+              >
+                <i class="ri-upload-2-line"></i> 导入数据 (JSON)
+              </button>
+              <input
+                type="file"
+                id="import-json-input"
+                accept=".json"
+                style="display: none"
+              />
+            </div>
+          </section>
+
+          <section class="settings-module">
+            <h3>演示数据</h3>
+            <p>一键填充演示数据，快速预览简历效果。</p>
+            <button
+              class="btn btn-primary"
+              id="fill-demo-btn"
+              style="width: 100%"
+            >
+              <i class="ri-magic-line"></i> 填充演示数据
+            </button>
+          </section>
+
+          <section class="settings-module">
+            <h3>重置表单</h3>
+            <p>清空所有已填写的简历内容和本地缓存。</p>
+            <button
+              class="btn btn-danger"
+              id="reset-form-btn"
+              style="width: 100%"
+            >
+              <i class="ri-alert-line"></i> 清空所有内容
+            </button>
+          </section>
+        </div>
+      </aside>
+
+      <main id="preview-panel">
+        <div id="resume-preview" class="resume-template modern">
+          <header class="preview-header">
+            <div class="header-content">
+              <div class="name-contact-section">
+                <h1 id="preview-name">您的姓名</h1>
+                <div class="contact-info" id="preview-contact">
+                  <div class="contact-row">
+                    <span id="preview-email-display">邮箱</span>
+                    <span class="contact-divider"></span>
+                    <span id="preview-phone-display">电话</span>
+                  </div>
+                  <div class="contact-row">
+                    <span id="preview-birthday-display">生日</span>
+                    <span class="contact-divider"></span>
+                    <span id="preview-hometown-display">籍贯</span>
+                  </div>
+                </div>
+              </div>
+              <div class="avatar-container">
+                <img
+                  id="preview-avatar"
+                  class="preview-avatar"
+                  src=""
+                  alt="个人头像"
+                />
+              </div>
+            </div>
+          </header>
+
+          <div class="resume-content-grid">
+            <!-- 左上区域 -->
+            <section class="preview-section" id="preview-summary-section">
+              <h2>个人简介</h2>
+              <p id="preview-summary">[请填写个人简介...]</p>
+            </section>
+
+            <!-- 右上区域 -->
+            <section class="preview-section" id="preview-skills-section">
+              <h2>个人特长/技能</h2>
+              <ul id="preview-skills">
+                <li>[技能/特长...]</li>
+              </ul>
+            </section>
+
+            <!-- 左下区域 -->
+            <section class="preview-section" id="preview-education-section">
+              <h2>教育背景</h2>
+              <ul id="preview-education">
+                <li>[学校名称] - [学历] - [专业] (时间)</li>
+              </ul>
+            </section>
+
+            <!-- 右下区域 -->
+            <section class="preview-section" id="preview-experience-section">
+              <h2>实习/工作经历</h2>
+              <div id="preview-experience">
+                <article class="experience-detail">
+                  <h3>[职位] @ [公司名称]</h3>
+                  <p class="experience-time">[起止时间]</p>
+                  <ul>
+                    <li>[职责描述示例...]</li>
+                  </ul>
+                </article>
+              </div>
+            </section>
+
+            <!-- 扩展区域 - 可以根据需要调整位置 -->
+            <section class="preview-section" id="preview-research-section">
+              <h2>科研经历</h2>
+              <div id="preview-research">
+                <article class="experience-detail">
+                  <h3>[研究方向/实验室]</h3>
+                  <p class="experience-time">[课题名称]</p>
+                  <ul>
+                    <li>[成果/发表论文...]</li>
+                  </ul>
+                </article>
+              </div>
+            </section>
+
+            <section class="preview-section" id="preview-honors-section">
+              <h2>获奖情况</h2>
+              <ul id="preview-honors">
+                <li>[奖项名称] ([获奖时间])</li>
+              </ul>
+            </section>
+
+            <section
+              class="preview-section"
+              id="preview-certifications-section"
+            >
+              <h2>证书</h2>
+              <ul id="preview-certifications">
+                <li>[证书名称] ([获取时间])</li>
+              </ul>
+            </section>
+
+            <section class="preview-section" id="preview-languages-section">
+              <h2>语言能力</h2>
+              <ul id="preview-languages">
+                <li>[语言] - [熟练程度]</li>
+              </ul>
+            </section>
+
+            <section
+              class="preview-section"
+              id="preview-evaluation-section"
+              style="grid-column: 1 / -1"
+            >
+              <h2>自我评价</h2>
+              <p id="preview-evaluation">[请填写自我评价...]</p>
+            </section>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="builder.js"></script>
+  </body>
+</html>

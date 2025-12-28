@@ -1,0 +1,1662 @@
+/* ===================================== */
+/* 1. 全局样式、CSS 变量与重置 */
+/* ===================================== */
+
+:root {
+  /* 颜色 */
+  --primary-color: #3b82f6;
+  --primary-hover-color: #2563eb;
+  --danger-color: #f44336;
+  --danger-bg-color: #fbebee;
+  --text-color-dark: #1f2937;
+  --text-color-light: #6b7280;
+  --bg-color-white: #ffffff;
+  --main-font-family: "Varela Round", sans-serif;
+  --main-text-color: #333333;
+  --bg-color-light: #f9fafb;
+  --border-color: #e5e7eb;
+  --main-font-size: 16px;
+
+  /* 字体 */
+  --font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  /* 布局 */
+  --navbar-height: 70px;
+  --sidebar-width: 65px;
+  --editor-panel-width: 380px;
+  --max-width: 1200px;
+  --border-radius: 8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color-white);
+  color: var(--text-color-dark);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ===================================== */
+/* 2. 通用按钮样式 (美化) */
+/* ===================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  font-size: 15px;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+.btn-primary:hover {
+  background-color: var(--primary-hover-color);
+}
+
+/* 添加经历按钮 */
+.btn-secondary-add {
+  width: 100%;
+  padding: 12px;
+  border: 1px dashed var(--primary-color);
+  color: var(--primary-color);
+  background: transparent;
+}
+.btn-secondary-add:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+  border-style: solid;
+}
+
+/* 删除按钮 */
+.btn-danger {
+  width: 100%;
+  background-color: var(--danger-bg-color);
+  border: 1px solid var(--danger-color);
+  color: var(--danger-color);
+  font-weight: 500;
+  margin-top: 10px;
+}
+.btn-danger:hover {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+/* 技能旁的小删除按钮 */
+.remove-skill-btn {
+  background: var(--danger-bg-color);
+  color: var(--danger-color);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0;
+  margin-top: 0;
+}
+.remove-skill-btn:hover {
+  background: var(--danger-color);
+  color: white;
+}
+
+/* ===================================== */
+/* 3. 顶部导航栏 (Navbar) - 继承自 index.css */
+/* ===================================== */
+.navbar {
+  background-color: var(--bg-color-white);
+  padding: 0;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+}
+.navbar .container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.navbar .nav-group {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.navbar .logo {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--text-color-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.navbar .logo i {
+  color: var(--primary-color);
+  font-size: 1.2em;
+}
+.navbar .logo .logo-text {
+  font-family: "Varela Round", sans-serif;
+  font-size: 1.3em;
+  font-weight: 1000;
+  background: linear-gradient(90deg, #00c4cc 0%, #5340ff 60%, #7a00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.header-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-color-light);
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.header-btn:hover {
+  background-color: var(--bg-color-light);
+  color: var(--text-color-dark);
+}
+
+/* ===================================== */
+/* 4. 主应用布局 (固定三栏) */
+/* ===================================== */
+
+#app-container {
+  display: grid;
+  /* 三列：图标栏、编辑器、预览区 */
+  grid-template-columns: var(--sidebar-width) var(--editor-panel-width) 1fr;
+  height: calc(100vh - var(--navbar-height));
+  overflow: hidden;
+  transition: grid-template-columns 0.3s ease-in-out;
+}
+
+/* 编辑器隐藏时的状态 */
+#app-container.editor-hidden {
+  grid-template-columns: var(--sidebar-width) 0 1fr;
+}
+
+/* ===================================== */
+/* 5. 左侧图标侧边栏 (Sidebar) */
+/* ===================================== */
+
+#main-sidebar {
+  background-color: var(--bg-color-white);
+  padding: 10px 0;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  z-index: 10;
+  grid-column: 1 / 2;
+}
+.sidebar-item {
+  width: 100%;
+  padding: 12px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: var(--text-color-light);
+  font-size: 0.75em;
+  transition: background-color 0.2s, color 0.2s;
+}
+.sidebar-item i {
+  font-size: 1.6em;
+  line-height: 1;
+}
+.sidebar-item:hover {
+  background-color: var(--bg-color-light);
+  color: var(--text-color-dark);
+}
+.sidebar-item.active {
+  color: var(--primary-color);
+  background-color: var(--bg-color-light);
+}
+
+/* ===================================== */
+/* 6. 左侧编辑面板 (Editor Panel) - 含滚动条 */
+/* ===================================== */
+
+#editor-panel {
+  grid-column: 2 / 3;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-color-white);
+  border-right: 1px solid var(--border-color);
+  z-index: 9;
+  padding: 25px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+#app-container.editor-hidden #editor-panel {
+  padding: 25px 0;
+  overflow: hidden;
+}
+
+/* Tab 内容切换 */
+.tab-content.hidden {
+  display: none;
+}
+
+/* ===================================== */
+/* 7. 表单内容样式 (防止拥挤) */
+/* ===================================== */
+
+fieldset {
+  border: none;
+  margin-bottom: 25px;
+  padding: 0;
+}
+legend {
+  font-size: 1.25em;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: var(--text-color-dark);
+}
+
+/* 输入行布局 */
+.input-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+/* 半宽输入框 */
+.input-half {
+  flex: 1;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+
+/* 美化日期输入框 - 额外样式 */
+input[type="date"] {
+  position: relative;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 20px 20px;
+  padding-right: 45px;
+}
+
+/* 自定义日期选择器外观 */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  opacity: 0;
+  z-index: 10;
+}
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-clear-button {
+  display: none;
+}
+
+input[type="date"]:hover {
+  border-color: var(--primary-color);
+  background-color: var(--bg-color-white);
+}
+
+input[type="date"]:focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+}
+
+/* 为日期输入框添加标签 */
+input[type="date"]::before {
+  content: attr(placeholder);
+  color: var(--text-color-light);
+  opacity: 1;
+}
+
+input[type="date"]:valid::before {
+  display: none;
+}
+
+/* 确保日期输入框在 Firefox 中的样式 */
+@-moz-document url-prefix() {
+  input[type="date"] {
+    background-image: none;
+    padding-right: 12px;
+  }
+
+  input[type="date"]::after {
+    content: "📅";
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  input[type="date"]:focus::after {
+    opacity: 1;
+  }
+}
+
+/* 输入框基础样式 - 继续 */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+textarea {
+  background-color: var(--bg-color-light);
+  font-size: 14px;
+  font-family: var(--font-family);
+  transition: all 0.2s;
+}
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  border-color: var(--primary-color);
+  background-color: var(--bg-color-white);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+/* 动态项组 */
+.item-group {
+  background-color: var(--bg-color-white);
+  border: 1px solid var(--border-color);
+  padding: 20px;
+  border-radius: var(--border-radius);
+  margin-bottom: 15px;
+}
+
+/* 技能输入组 (纯文本) */
+.item-group-skill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.item-group-skill input[type="text"] {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+/* 【修改点 3】字数统计样式 */
+.char-counter {
+  font-size: 0.85em;
+  color: var(--text-color-light);
+  text-align: right;
+  margin-top: -5px; /* 紧贴 textarea */
+  margin-bottom: 10px;
+  transition: color 0.3s;
+}
+
+/* ===================================== */
+/* 8. 样式和工具面板 (防止拥挤) */
+/* ===================================== */
+.settings-module {
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px dashed var(--border-color);
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.settings-module:last-child {
+  border-bottom: none;
+}
+
+.settings-module h3 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.settings-module p {
+  font-size: 0.9em;
+  color: var(--text-color-light);
+  margin-bottom: 15px;
+}
+
+/* 模板选择 (6个) */
+.template-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.template-selector button {
+  padding: 15px 10px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color-light);
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.template-selector button:hover {
+  border-color: var(--primary-color);
+}
+.template-selector button.active {
+  border-color: var(--primary-color);
+  background-color: var(--bg-color-white);
+  color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* 颜色与字体设置美化 */
+.color-picker-group,
+.font-picker-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: var(--bg-color-light);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.font-size-group {
+  margin-bottom: 15px;
+}
+
+.font-size-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: var(--text-color-dark);
+}
+
+#font-size-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--border-color);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin-bottom: 5px;
+}
+
+#font-size-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#font-size-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary-color);
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#font-size-display {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  text-align: center;
+  background-color: var(--bg-color-light);
+}
+
+.color-picker-group:hover,
+.font-picker-group:hover {
+  border-color: var(--primary-color);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+}
+
+.color-picker-group label,
+.font-picker-group label {
+  font-weight: 500;
+  min-width: 60px;
+  color: var(--text-color-dark);
+  font-size: 14px;
+}
+
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+input[type="color"]:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 兼容 WebKit (Chrome, Safari) */
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+  border-radius: calc(var(--border-radius) - 1px);
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: calc(var(--border-radius) - 1px);
+}
+
+/* 兼容 Firefox */
+input[type="color"]::-moz-color-swatch {
+  border: none;
+  border-radius: calc(var(--border-radius) - 1px);
+}
+
+/* 颜色代码输入框样式 */
+#color-theme-display,
+#text-color-display {
+  font-family: "monospace";
+  font-size: 14px;
+  font-weight: 600;
+  background-color: var(--bg-color-white);
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+  min-width: 80px;
+  text-align: center;
+}
+
+#color-theme-display:focus,
+#text-color-display:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* 字体选择器样式 - 可滚动按钮组 */
+.font-picker-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background-color: var(--bg-color-white);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.font-scrollable-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-color-light);
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) var(--border-color);
+}
+
+/* Webkit 滚动条样式 */
+.font-scrollable-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.font-scrollable-container::-webkit-scrollbar-track {
+  background: var(--bg-color-light);
+  border-radius: 4px;
+}
+
+.font-scrollable-container::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 4px;
+  border: 2px solid var(--bg-color-light);
+}
+
+.font-scrollable-container::-webkit-scrollbar-thumb:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.font-button {
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-color-white);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  user-select: none;
+}
+
+.font-button:hover {
+  border-color: var(--primary-color);
+  background-color: var(--bg-color-light);
+  transform: translateY(-1px);
+}
+
+.font-button.active {
+  background-color: var(--primary-color);
+  color: white !important;
+  border-color: var(--primary-color);
+  border-width: 2px;
+  font-weight: 600;
+  padding: 10px 14px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transform: scale(1.03);
+  /* 确保文字可见性 */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  /* 确保选中状态绝对明显 */
+  position: relative;
+  z-index: 10;
+}
+
+.font-button.active:hover {
+  background-color: var(--primary-color-hover);
+  border-color: var(--primary-color-hover);
+  color: white;
+}
+
+.layout-selector {
+  display: none;
+}
+
+/* ===================================== */
+/* 9. 右侧预览面板 (实时更新区) */
+/* ===================================== */
+
+#preview-panel {
+  grid-column: 3 / 4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30px;
+  overflow: auto;
+  background-color: var(--bg-color-light);
+}
+
+#resume-preview {
+  width: 210mm;
+  min-height: 297mm;
+  background: var(--bg-color-white);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  padding: 40px;
+  transition: transform 0.3s ease-out;
+  transform-origin: center top;
+  font-size: 14px;
+  line-height: 1.6;
+  font-family: var(--main-font-family);
+  color: var(--main-text-color);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.resume-template {
+  font-size: var(--main-font-size);
+  line-height: 1.5;
+}
+
+#resume-preview p,
+#resume-preview li,
+#resume-preview h3,
+#resume-preview h4,
+#resume-preview .contact-info,
+#resume-preview .contact-info span,
+#resume-preview .preview-section h2,
+#resume-preview .experience-detail,
+#resume-preview .education-detail,
+#resume-preview .research-detail,
+#resume-preview .honors-detail,
+#resume-preview .skills-list li {
+  color: var(--main-text-color);
+}
+
+.resume-template .contact-info span::before,
+.resume-template .preview-section h2::before {
+  color: var(--primary-color) !important;
+}
+
+/* 联系方式通用样式 */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* 各模板特定的联系方式样式 */
+.resume-template.modern .contact-info {
+  gap: 3px;
+}
+
+.resume-template.classic .contact-info {
+  gap: 4px;
+}
+
+.resume-template.professional .contact-info {
+  gap: 4px;
+}
+
+.resume-template.creative .contact-info {
+  gap: 3px;
+}
+
+.resume-template.minimal .contact-info {
+  gap: 2px;
+}
+
+.resume-template.academic .contact-info {
+  gap: 3px;
+}
+
+/* 2*2网格布局 - 简历内容区域 */
+.resume-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+/* 预览内容样式 */
+.preview-header {
+  border-bottom: 3px solid var(--primary-color);
+  padding-bottom: 15px;
+  margin-bottom: 0;
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    rgba(59, 130, 246, 0.05) 0%,
+    rgba(59, 130, 246, 0.02) 100%
+  );
+  padding-top: 15px;
+  border-radius: 8px 8px 0 0;
+}
+
+.header-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  padding-bottom: 15px;
+  margin-bottom: 0;
+  min-height: auto;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.name-contact-section {
+  text-align: left;
+  flex: 1;
+  margin-right: 0;
+  padding: 10px 0;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .name-contact-section {
+    text-align: center;
+  }
+
+  .contact-row {
+    justify-content: center;
+  }
+}
+
+.avatar-container {
+  margin-left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preview-avatar {
+  width: 218px;
+  height: 267px;
+  object-fit: cover;
+  border: 2px solid var(--primary-color);
+  display: none;
+}
+
+/* 编辑器中的头像上传样式 */
+.avatar-upload-group {
+  margin-top: 15px;
+}
+
+.avatar-upload-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.avatar-upload-group input[type="file"] {
+  margin-bottom: 10px;
+}
+
+.avatar-preview {
+  width: 218px;
+  height: 267px;
+  border: 2px dashed #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.avatar-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .avatar-container {
+    margin-left: 0;
+    margin-top: 15px;
+  }
+}
+#preview-name {
+  font-size: 2.8em;
+  font-weight: 800;
+  color: var(--main-text-color);
+  margin-bottom: 10px;
+  background: none;
+  text-shadow: none;
+  border: none;
+  position: relative;
+  z-index: 1;
+  line-height: 1.2;
+  margin: 0;
+}
+.contact-info {
+  font-size: 1em;
+  color: var(--text-color-light);
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+.preview-section {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.preview-section:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.preview-section h2 {
+  font-size: 1.3em;
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  font-weight: 700;
+  position: relative;
+}
+
+.preview-section h2::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color), #818cf8);
+}
+
+.preview-section p,
+.preview-section ul {
+  font-size: 0.95em;
+  color: var(--text-color-dark);
+  line-height: 1.7;
+}
+
+.preview-section ul {
+  padding-left: 20px;
+  list-style: disc;
+  margin: 0;
+}
+
+.preview-section li {
+  margin-bottom: 6px;
+  position: relative;
+}
+
+.experience-detail {
+  margin-bottom: 18px;
+  background: rgba(59, 130, 246, 0.03);
+  padding: 15px;
+  border-radius: 6px;
+  border-left: 3px solid var(--primary-color);
+  transition: transform 0.2s;
+}
+
+.experience-detail:hover {
+  transform: translateX(3px);
+}
+
+.experience-detail h3 {
+  font-size: 1.15em;
+  color: var(--text-color-dark);
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.experience-time {
+  color: var(--primary-color);
+  font-weight: 500;
+  margin-bottom: 12px !important;
+  font-size: 0.9em;
+}
+
+/* 为技能列表添加特殊样式 */
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.skills-list li {
+  background: none;
+  color: var(--main-text-color);
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em;
+  font-weight: normal;
+  margin-bottom: 0 !important;
+  display: inline-block;
+  box-shadow: none;
+}
+.experience-detail p.experience-time {
+  font-size: 0.9em;
+  color: var(--text-color-light);
+  margin-bottom: 5px;
+  font-style: italic;
+}
+.experience-detail ul {
+  list-style: disc;
+  padding-left: 20px;
+  font-size: 0.95em;
+}
+
+/* ===================================== */
+/* 模板 1: Modern Infographic (现代信息图) */
+/* ===================================== */
+
+.resume-template.modern {
+  font-family: "Inter", "Helvetica Neue", sans-serif;
+  background-color: #f7f8fa;
+  padding: 30px;
+  margin: -40px;
+}
+.resume-template.modern .preview-header {
+  text-align: left;
+  border: none;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+}
+.resume-template.modern #preview-name {
+  font-size: 2.8em;
+  font-weight: 800;
+  color: var(--main-text-color);
+  background: none;
+  text-shadow: none;
+}
+.resume-template.modern .contact-info {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+  color: #4a5568;
+}
+/* 为联系方式添加图标 */
+.resume-template.modern .contact-info span::before {
+  font-family: "remixicon";
+  margin-right: 8px;
+  color: var(--primary-color);
+  vertical-align: middle;
+}
+.resume-template.modern .contact-info #preview-email-display::before {
+  content: "\ee86";
+}
+.resume-template.modern .contact-info #preview-phone-display::before {
+  content: "\efd8";
+}
+.resume-template.modern .preview-section {
+  background: white;
+  margin-top: 20px;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.05);
+}
+.resume-template.modern .preview-section h2 {
+  font-size: 1.2em;
+  color: var(--primary-color);
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/* 为每个模块标题添加不同的图标 */
+.resume-template.modern .preview-section h2::before {
+  font-family: "remixicon";
+  font-size: 1.2em;
+}
+.resume-template.modern #preview-summary-section h2::before {
+  content: "\f0f4";
+} /* user-line */
+.resume-template.modern #preview-education-section h2::before {
+  content: "\eb3e";
+} /* graduation-cap-line */
+.resume-template.modern #preview-experience-section h2::before {
+  content: "\ecb8";
+} /* building-4-line */
+.resume-template.modern #preview-research-section h2::before {
+  content: "\efc3";
+} /* test-tube-line */
+.resume-template.modern #preview-honors-section h2::before {
+  content: "\f04b";
+} /* award-line */
+.resume-template.modern #preview-certifications-section h2::before {
+  content: "\eb14";
+} /* file-paper-2-line */
+.resume-template.modern #preview-languages-section h2::before {
+  content: "\efcc";
+} /* translate-2-line */
+.resume-template.modern #preview-skills-section h2::before {
+  content: "\ee4e";
+} /* lightbulb-flash-line */
+
+/* 制作时间轴效果 */
+.resume-template.modern .experience-detail,
+.resume-template.modern #preview-education ul li,
+.resume-template.modern #preview-honors ul li,
+.resume-template.modern #preview-certifications ul li {
+  padding-left: 25px;
+  border-left: 2px solid #e2e8f0;
+  position: relative;
+}
+.resume-template.modern .experience-detail:not(:last-child),
+.resume-template.modern #preview-education ul li:not(:last-child),
+.resume-template.modern #preview-honors ul li:not(:last-child),
+.resume-template.modern #preview-certifications ul li:not(:last-child) {
+  padding-bottom: 20px;
+}
+/* 时间轴上的圆点 */
+.resume-template.modern .experience-detail::before,
+.resume-template.modern #preview-education ul li::before,
+.resume-template.modern #preview-honors ul li::before,
+.resume-template.modern #preview-certifications ul li::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid var(--primary-color);
+}
+.resume-template.modern .experience-detail h3 {
+  font-weight: 700;
+}
+
+/* ===================================== */
+/* 模板 2: Classic Monogram (经典会标) */
+/* ===================================== */
+
+.resume-template.classic {
+  font-family: "Garamond", "Times New Roman", serif;
+  background: #fdfcf9;
+  border: 1px solid #e0e0e0;
+}
+.resume-template.classic .preview-header {
+  text-align: center;
+  border: none;
+  padding: 20px 0;
+  position: relative;
+}
+/* 移除名字部分的装饰 */
+.resume-template.classic .preview-header::before,
+.resume-template.classic .preview-header::after {
+  content: none;
+}
+.resume-template.classic #preview-name {
+  font-size: 2.5em;
+  font-weight: normal;
+  letter-spacing: 0;
+  color: var(--main-text-color);
+  text-transform: none;
+}
+/* 移除名字旁边的字母会标 */
+.resume-template.classic #preview-name::before {
+  content: none;
+}
+.resume-template.classic .contact-info {
+  font-size: 0.9em;
+  letter-spacing: 1px;
+}
+.resume-template.classic .preview-section {
+  padding: 0 10px;
+}
+.resume-template.classic .preview-section h2 {
+  font-size: 1.1em;
+  text-align: center;
+  letter-spacing: 2px;
+  font-variant: small-caps;
+  color: #333;
+  border: none;
+  margin-bottom: 20px;
+}
+.resume-template.classic .experience-detail {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+}
+.resume-template.classic .experience-detail h3 {
+  grid-column: 1 / 2;
+  font-weight: bold;
+}
+.resume-template.classic .experience-detail .experience-time {
+  grid-column: 2 / 3;
+  text-align: right;
+  font-style: italic;
+  color: #555;
+}
+.resume-template.classic .experience-detail ul {
+  grid-column: 1 / -1;
+}
+
+/* ===================================== */
+/* 模板 3: Corporate Sidebar (企业侧栏) */
+/* ===================================== */
+
+.resume-template.professional {
+  font-family: "Lato", "Helvetica Neue", sans-serif;
+  padding: 0;
+  margin: -40px;
+  display: grid;
+  grid-template-columns: 0.35fr 1fr;
+}
+/* --- 左侧侧栏 --- */
+.resume-template.professional .preview-sidebar {
+  grid-column: 1 / 2;
+  background: #2c3e50;
+  color: white;
+  padding: 40px 25px;
+}
+.resume-template.professional .preview-sidebar .preview-section {
+  margin-bottom: 30px;
+}
+.resume-template.professional .preview-sidebar h2 {
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+.resume-template.professional .preview-sidebar p,
+.resume-template.professional .preview-sidebar ul {
+  color: #bdc3c7;
+  font-size: 0.9em;
+}
+.resume-template.professional .preview-sidebar ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+/* --- 右侧主栏 --- */
+.resume-template.professional .preview-main {
+  grid-column: 2 / 3;
+  padding: 40px 30px;
+}
+.resume-template.professional .preview-main .preview-header {
+  border: none;
+  text-align: left;
+}
+.resume-template.professional .preview-main #preview-name {
+  color: var(--main-text-color);
+  font-size: 3.2em;
+  font-weight: 900;
+  background: none;
+  text-shadow: none;
+  border: none;
+}
+.resume-template.professional .preview-main h2 {
+  color: #2c3e50;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* ===================================== */
+/* 模板 4: Creative Geometric (创意风) */
+/* ===================================== */
+.resume-template.creative {
+  font-family: "Poppins", sans-serif;
+  padding: 0;
+  margin: -40px;
+  display: grid;
+  grid-template-columns: 0.35fr 1fr;
+  background: #f9f9f9;
+}
+
+/* --- 左侧侧栏（个人信息+照片）--- */
+.resume-template.creative .preview-sidebar {
+  grid-column: 1 / 2;
+  background: var(--primary-color);
+  color: white;
+  padding: 60px 30px;
+  position: relative;
+}
+
+/* 照片容器 */
+.resume-template.creative .avatar-container {
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 30px;
+  border-radius: 50%;
+  border: 5px solid rgba(255, 255, 255, 0.8);
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.resume-template.creative .avatar-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 侧栏信息样式 */
+.resume-template.creative .preview-sidebar .preview-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.resume-template.creative .preview-sidebar #preview-name {
+  font-size: 2.2em;
+  color: white;
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+
+.resume-template.creative .preview-sidebar .contact-info {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95em;
+  margin-bottom: 5px;
+}
+
+/* 侧栏模块样式 */
+.resume-template.creative .preview-sidebar .preview-section {
+  margin-bottom: 35px;
+}
+
+.resume-template.creative .preview-sidebar h2 {
+  color: white;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+}
+
+.resume-template.creative .preview-sidebar ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.resume-template.creative .preview-sidebar li {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 8px;
+  font-size: 0.9em;
+}
+
+/* --- 右侧主栏--- */
+.resume-template.creative .preview-main {
+  grid-column: 2 / 3;
+  padding: 60px 40px;
+  background: white;
+}
+
+/* 主栏模块样式 */
+.resume-template.creative .preview-main .preview-section {
+  margin-bottom: 40px;
+  position: relative;
+  padding-left: 15px;
+}
+
+.resume-template.creative .preview-main h2 {
+  color: var(--primary-color);
+  font-size: 1.6em;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+/* 保留创意风特色的模块装饰 */
+.resume-template.creative .preview-main h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary-color);
+}
+
+/* 经历详情样式 */
+.resume-template.creative .preview-main .experience-detail {
+  margin-bottom: 25px;
+}
+
+.resume-template.creative .preview-main .experience-detail h3 {
+  color: #222;
+  font-size: 1.2em;
+  margin: 0 0 5px;
+}
+
+.resume-template.creative .preview-main p,
+.resume-template.creative .preview-main li {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* ===================================== */
+/* 模板 5: Minimalist Column (极简分栏) */
+/* ===================================== */
+
+.resume-template.minimal {
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  color: #555;
+  background: #fff;
+}
+.resume-template.minimal .preview-header {
+  border: none;
+  text-align: left;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+.resume-template.minimal #preview-name {
+  font-size: 2.5em;
+  font-weight: 500;
+  color: var(--main-text-color);
+  letter-spacing: 0;
+  background: none;
+  text-shadow: none;
+  border: none;
+}
+.resume-template.minimal .contact-info {
+  font-family: "Roboto Mono", monospace;
+  font-size: 0.9em;
+}
+
+/* 联系方式行布局 */
+.contact-row {
+  display: grid;
+  grid-template-columns: auto 25px auto;
+  align-items: center;
+  line-height: 1.6;
+  font-size: 0.95em;
+  gap: 0;
+}
+
+.contact-divider {
+  color: var(--primary-color);
+  font-weight: 400;
+  text-align: center;
+  width: 20px;
+  flex-shrink: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.85em;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.contact-divider::before {
+  content: "";
+  position: absolute;
+  height: 60%;
+  width: 1px;
+  background-color: var(--primary-color);
+  opacity: 0.6;
+}
+
+.contact-divider {
+  visibility: hidden;
+}
+
+.contact-divider::before {
+  visibility: visible;
+}
+
+/* 联系方式hover效果 */
+#resume-preview .contact-info span {
+  transition: color 0.2s ease;
+  position: relative;
+  padding-left: 22px;
+  display: inline-block;
+}
+
+#resume-preview .contact-info span:hover {
+  color: var(--primary-color);
+}
+
+/* 联系方式图标 */
+#resume-preview #preview-email-display::before {
+  content: "✉️";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85em;
+}
+
+#resume-preview #preview-phone-display::before {
+  content: "📞";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85em;
+}
+
+#resume-preview #preview-birthday-display::before {
+  content: "🎂";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85em;
+}
+
+#resume-preview #preview-hometown-display::before {
+  content: "📍";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.85em;
+}
+
+/* 优化姓名与联系方式的间距 */
+.name-contact-section h1 {
+  margin-bottom: 10px;
+}
+
+/* 改进联系方式整体视觉效果 */
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0.95;
+}
+/* --- 每个模块内部使用 Grid 分栏 --- */
+.resume-template.minimal .preview-section {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+}
+.resume-template.minimal .preview-section h2 {
+  grid-column: 1 / 2;
+  font-size: 0.9em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #000;
+  border: none;
+  padding-top: 2px;
+}
+.resume-template.minimal .preview-section > *:not(h2) {
+  grid-column: 2 / 3;
+}
+.resume-template.minimal .experience-detail h3 {
+  font-weight: 500;
+  color: #222;
+}
+.resume-template.minimal .experience-detail .experience-time {
+  font-size: 0.9em;
+  color: #888;
+}
+
+/* ===================================== */
+/* 模板 6: Academic Gazette (学术公报) */
+/* ===================================== */
+
+.resume-template.academic {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 11pt;
+  color: #000;
+  padding: 0;
+  margin: -40px;
+}
+/* --- 页眉 --- */
+.resume-template.academic::before {
+  content: "Curriculum Vitae";
+  display: block;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1.5px solid #000;
+  margin-bottom: 15px;
+  font-variant: small-caps;
+}
+.resume-template.academic .preview-header {
+  text-align: center;
+  border: none;
+  padding: 0 40px;
+}
+.resume-template.academic #preview-name {
+  font-size: 2em;
+  font-weight: bold;
+  background: none;
+  text-shadow: none;
+  border: none;
+}
+/* --- 个人简介横跨两栏 --- */
+.resume-template.academic #preview-summary-section {
+  padding: 15px 40px;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  margin-top: 15px;
+}
+.resume-template.academic #preview-summary-section h2 {
+  display: none;
+}
+/* --- 简介之后的内容分两栏 --- */
+.resume-template.academic .academic-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  padding: 20px 40px;
+}
+.resume-template.academic .academic-columns .preview-section h2 {
+  border: none;
+  font-variant: small-caps;
+  text-align: center;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #000;
+}
