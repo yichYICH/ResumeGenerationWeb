@@ -418,14 +418,24 @@ a:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05); /* 为每张图片增加轻微阴影 */
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
+<<<<<<< HEAD
   position: absolute; /* 所有图片都使用绝对定位 */
   top: 0;
   left: 0;
   width: 100%;
+=======
+>>>>>>> ea1c47bcf1c190421dcb2cf55df50bfe0797d441
 }
 
 .slider-item.active {
   opacity: 1; /* 仅激活的图片可见 */
+<<<<<<< HEAD
+=======
+  position: absolute; /* 使图片堆叠 */
+  top: 0;
+  left: 0;
+  width: 100%;
+>>>>>>> ea1c47bcf1c190421dcb2cf55df50bfe0797d441
 }
 
 /* 左右切换按钮样式 */
@@ -620,4 +630,12 @@ a:hover {
   .footer-links {
     margin-top: 10px; /* 在堆叠时增加间距 */
   }
+<<<<<<< HEAD
 }
+=======
+<<<<<<< HEAD
+}
+=======
+}
+>>>>>>> c6788e238ce52ca5c9f22699cbf4f04d6ff327ba
+>>>>>>> ea1c47bcf1c190421dcb2cf55df50bfe0797d441
