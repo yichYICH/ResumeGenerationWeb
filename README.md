@@ -41,7 +41,7 @@
 
 ## 🛠️ 技术栈 (Tech Stack)
 
-* **核心语言**: HTML5, CSS3 (CSS Variables, Flexbox, Grid), JavaScript (ES6+)
+* **核心语言**: css vue框架 javascript
 * **样式处理**: 原生 CSS，未使用 Bootstrap 等重型框架，保证轻量化。
 * **图标库**: [RemixIcon](https://remixicon.com/)
 * **字体服务**: Google Fonts
