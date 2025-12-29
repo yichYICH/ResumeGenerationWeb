@@ -2,9 +2,9 @@
 
 > 一个现代化、隐私安全、无需后端的在线简历制作工具。所见即所得，一键导出 PDF。
 
-![项目封面图](path/to/your/screenshot.png) ## 📖 项目介绍
+## 📖 项目介绍
 
-这是一个基于纯前端技术栈（HTML5 + CSS3 + ES6）开发的在线简历生成应用。它旨在帮助用户通过简单的交互界面，快速生成美观、专业的简历。
+这是一个基于 vue+css 开发的在线简历生成应用。它旨在帮助用户通过简单的交互界面，快速生成美观、专业的简历。
 
 **核心亮点：**
 * **隐私优先**：所有数据仅存储在本地浏览器（LocalStorage），不上传任何服务器，确保用户隐私安全。
@@ -46,16 +46,3 @@
 * **图标库**: [RemixIcon](https://remixicon.com/)
 * **字体服务**: Google Fonts
 * **PDF 生成**: [html2pdf.js](https://github.com/eKoopmans/html2pdf.js)
-
-## 📂 目录结构 (Directory Structure)
-
-```text
-Project/
-├── index.html          # 项目首页 (Landing Page)
-├── index.css           # 首页样式
-├── index.js            # 首页逻辑 (轮播图、弹窗)
-├── builder.html        # 简历编辑器主页面
-├── builder.css         # 编辑器核心样式 (含所有模板样式)
-├── builder.js          # 编辑器核心逻辑 (数据绑定、交互、导出)
-├── hero-resume-preview-*.png  # 预览图片资源
-└── README.md           # 项目说明文档
