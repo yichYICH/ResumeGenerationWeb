@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "html2pdf.js": "^0.12.1",
+    "remixicon": "^4.7.0"
+  }
+}
