@@ -189,15 +189,15 @@ const fillDemoData = () => {
     phone: '13800138000',
     birthday: '1998-05-20',
     hometown: '北京市',
-    summary: '软件工程师，热爱前端开发。',
-    education: [{ school: '北京大学', degree: '硕士', major: '计算机', edu_time: '2020-2023' }],
+    summary: '软件工程师，热爱前端开发。具备扎实的编程基础，熟悉Vue.js全家桶。',
+    education: [{ school: '北京大学', degree: '硕士', major: '计算机科学与技术', edu_time: '2020-2023' }],
     experience: [
-      { company: '字节跳动', position: '前端', exp_time: '2023-至今', duties: '负责产品迭代。' },
+      { company: '字节跳动', position: '前端开发工程师', exp_time: '2023-至今', duties: '负责抖音Web端功能迭代。\n优化页面加载性能，提升用户体验。' },
     ],
-    skills: [{ skill_text: 'JavaScript' }, { skill_text: 'Vue.js' }],
+    skills: [{ skill_text: 'JavaScript' }, { skill_text: 'Vue.js' }, { skill_text: 'CSS3' }],
     primaryColor: '#3B82F6',
     textColor: '#333333',
-    template: 'modern',
+    template: 'professional',
     fontSize: 16,
   }
   Object.assign(resumeData, demo)
@@ -523,16 +523,14 @@ const nameInitials = computed(() =>
                 :class="{ active: resumeData.template === t }"
                 @click="resumeData.template = t"
               >
-                {{
-                  {
+                {{ {
                     modern: '现代风',
-                    classic: '简约风',
+                    classic: '经典风',
                     professional: '专业风',
                     creative: '创意风',
-                    minimal: '极简风',
+                    minimal: '简约风',
                     academic: '学术风',
-                  }[t]
-                }}
+                  }[t] }}
               </button>
             </div>
           </section>
@@ -570,6 +568,7 @@ const nameInitials = computed(() =>
                 max="24"
                 v-model="resumeData.fontSize"
                 @input="updateCssVariables"
+                style="width: 100%"
               />
             </div>
           </section>
@@ -731,7 +730,7 @@ const nameInitials = computed(() =>
               </div>
           </template>
           
-          <template v-else-if="['modern', 'minimal'].includes(resumeData.template)">
+          <template v-else-if="resumeData.template === 'modern'">
               <header class="preview-header">
                 <div class="header-content" :class="{ 'modern-header-content': resumeData.template === 'modern' }">
                   <div class="avatar-container modern-avatar-container" v-if="resumeData.avatar && resumeData.template === 'modern'">
@@ -857,80 +856,181 @@ const nameInitials = computed(() =>
               </div>
           </template>
 
-          <template v-else-if="resumeData.template === 'professional'">
-            <div class="professional-layout">
-              <header class="preview-header professional-header">
-                <h1 id="preview-name">{{ resumeData.name || '您的姓名' }}</h1>
-                <div class="contact-info professional-contact">
-                  <span v-if="resumeData.email" id="preview-email-display">
-                    <i class="ri-mail-line"></i> {{ resumeData.email }}
-                  </span>
-                  <span v-if="resumeData.phone" id="preview-phone-display">
-                    <i class="ri-phone-line"></i> {{ resumeData.phone }}
-                  </span>
-                  <span v-if="resumeData.birthday" id="preview-birthday-display">
-                    <i class="ri-calendar-line"></i> {{ resumeData.birthday }}
-                  </span>
-                  <span v-if="resumeData.hometown" id="preview-hometown-display">
-                    <i class="ri-map-pin-line"></i> {{ resumeData.hometown }}
-                  </span>
+          <template v-else-if="resumeData.template === 'minimal'">
+            <div class="minimal-layout">
+              <header class="preview-header minimal-header">
+                <div class="minimal-header-content">
+                  <div class="avatar-container minimal-avatar" v-if="resumeData.avatar">
+                    <img :src="resumeData.avatar" class="preview-avatar" />
+                  </div>
+                  <div class="header-text">
+                    <h1 id="preview-name">{{ resumeData.name || '您的姓名' }}</h1>
+                    <div class="contact-info">
+                      <span v-if="resumeData.email" id="preview-email-display"><i class="ri-mail-fill"></i> {{ resumeData.email }}</span>
+                      <span v-if="resumeData.phone" id="preview-phone-display"><i class="ri-phone-fill"></i> {{ resumeData.phone }}</span>
+                      <span v-if="resumeData.birthday" id="preview-birthday-display"><i class="ri-calendar-fill"></i> {{ resumeData.birthday }}</span>
+                      <span v-if="resumeData.hometown" id="preview-hometown-display"><i class="ri-map-pin-fill"></i> {{ resumeData.hometown }}</span>
+                    </div>
+                  </div>
                 </div>
               </header>
               
-              <div class="resume-content-grid professional-content">
-                <section class="preview-section professional-section" v-if="resumeData.summary">
+              <section class="preview-section" v-if="resumeData.summary">
+                <h2>个人简介</h2>
+                <p>{{ resumeData.summary }}</p>
+              </section>
+              
+              <section class="preview-section" v-if="resumeData.education.length">
+                <h2>教育背景</h2>
+                <ul>
+                  <li v-for="(edu, i) in resumeData.education" :key="i">{{ edu.school }} - {{ edu.degree }} - {{ edu.major }} ({{ edu.edu_time }})</li>
+                </ul>
+              </section>
+              
+              <section class="preview-section" v-if="resumeData.experience.length">
+                <h2>实习/工作经历</h2>
+                <div v-for="(exp, i) in resumeData.experience" :key="i" class="experience-detail">
+                  <p>{{ exp.company }} - {{ exp.position }} ({{ exp.exp_time }})</p>
+                  <ul>
+                    <li v-for="(line, k) in formatLines(exp.duties)" :key="k" v-html="line"></li>
+                  </ul>
+                </div>
+              </section>
+              
+              <section class="preview-section" v-if="resumeData.research.length">
+                <h2>科研经历</h2>
+                <div v-for="(res, i) in resumeData.research" :key="i" class="experience-detail">
+                  <p>{{ res.research_field }} - {{ res.research_topic }}</p>
+                  <ul>
+                    <li v-for="(line, k) in formatLines(res.research_pubs)" :key="k" v-html="line"></li>
+                  </ul>
+                </div>
+              </section>
+              
+              <section class="preview-section" v-if="resumeData.honors.length">
+                <h2>获奖情况</h2>
+                <ul>
+                  <li v-for="(h, i) in resumeData.honors" :key="i">{{ h.honor_name }} ({{ h.honor_time }})</li>
+                </ul>
+              </section>
+              
+              <section class="preview-section" v-if="resumeData.skills.length">
+                <h2>个人特长/技能</h2>
+                <ul>
+                  <li v-for="(s, i) in resumeData.skills" :key="i">{{ s.skill_text }}</li>
+                </ul>
+              </section>
+              
+              <section class="preview-section" v-if="resumeData.certifications.length">
+                <h2>证书</h2>
+                <ul>
+                  <li v-for="(c, i) in resumeData.certifications" :key="i">{{ c.cert_name }} ({{ c.cert_date }})</li>
+                </ul>
+              </section>
+              
+              <section class="preview-section" v-if="resumeData.languages.length">
+                <h2>语言能力</h2>
+                <ul>
+                  <li v-for="(l, i) in resumeData.languages" :key="i">{{ l.lang_name }} - {{ l.lang_level }}</li>
+                </ul>
+              </section>
+              
+              <section class="preview-section" v-if="resumeData.evaluation">
+                <h2>自我评价</h2>
+                <p>{{ resumeData.evaluation }}</p>
+              </section>
+            </div>
+          </template>
+
+          <template v-else-if="resumeData.template === 'professional'">
+            <div class="professional-layout">
+              <header class="professional-header">
+                <div class="professional-header-content">
+                  <div class="avatar-container professional-avatar" v-if="resumeData.avatar">
+                    <img :src="resumeData.avatar" class="preview-avatar" />
+                  </div>
+                  <div class="header-text">
+                    <h1 id="preview-name">{{ resumeData.name || '您的姓名' }}</h1>
+                    <div class="professional-contact">
+                      <span v-if="resumeData.email">
+                        <i class="ri-mail-fill"></i> {{ resumeData.email }}
+                      </span>
+                      <span v-if="resumeData.phone">
+                        <i class="ri-phone-fill"></i> {{ resumeData.phone }}
+                      </span>
+                      <span v-if="resumeData.birthday">
+                        <i class="ri-calendar-fill"></i> {{ resumeData.birthday }}
+                      </span>
+                      <span v-if="resumeData.hometown">
+                        <i class="ri-map-pin-fill"></i> {{ resumeData.hometown }}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </header>
+              
+              <div class="professional-content">
+                <section class="professional-section" v-if="resumeData.summary">
                   <h2>个人简介</h2>
                   <p>{{ resumeData.summary }}</p>
                 </section>
                 
-                <section class="preview-section professional-section" v-if="resumeData.education.length">
+                <section class="professional-section" v-if="resumeData.education.length">
                   <h2>教育背景</h2>
-                  <ul>
-                    <li v-for="(edu, i) in resumeData.education" :key="i">
-                      <strong>{{ edu.school }}</strong> - {{ edu.degree }} - {{ edu.major }} ({{ edu.edu_time }})
-                    </li>
-                  </ul>
+                  <div v-for="(edu, i) in resumeData.education" :key="i" class="experience-detail">
+                    <div class="item-header">
+                      <div class="item-title">{{ edu.school }}</div>
+                      <div class="item-time">{{ edu.edu_time }}</div>
+                    </div>
+                    <div class="item-subtitle">{{ edu.degree }} - {{ edu.major }}</div>
+                  </div>
                 </section>
                 
-                <section class="preview-section professional-section" v-if="resumeData.experience.length">
+                <section class="professional-section" v-if="resumeData.experience.length">
                   <h2>实习/工作经历</h2>
                   <article v-for="(exp, i) in resumeData.experience" :key="i" class="experience-detail">
-                    <h3>{{ exp.position }} @ {{ exp.company }}</h3>
-                    <p class="experience-time">{{ exp.exp_time }}</p>
+                    <div class="item-header">
+                      <div class="item-title">{{ exp.company }}</div>
+                      <div class="item-time">{{ exp.exp_time }}</div>
+                    </div>
+                    <div class="item-subtitle">{{ exp.position }}</div>
                     <ul>
                       <li v-for="(line, k) in formatLines(exp.duties)" :key="k" v-html="line"></li>
                     </ul>
                   </article>
                 </section>
                 
-                <section class="preview-section professional-section" v-if="resumeData.research.length">
+                <section class="professional-section" v-if="resumeData.research.length">
                   <h2>科研经历</h2>
                   <article v-for="(res, i) in resumeData.research" :key="i" class="experience-detail">
-                    <h3>{{ res.research_field }}</h3>
-                    <p class="experience-time">{{ res.research_topic }}</p>
+                    <div class="item-header">
+                      <div class="item-title">{{ res.research_field }}</div>
+                      <div class="item-time"></div> </div>
+                    <div class="item-subtitle">{{ res.research_topic }}</div>
                     <ul>
                       <li v-for="(line, k) in formatLines(res.research_pubs)" :key="k" v-html="line"></li>
                     </ul>
                   </article>
                 </section>
                 
-                <section class="preview-section professional-section" v-if="resumeData.honors.length">
+                <section class="professional-section" v-if="resumeData.honors.length">
                   <h2>获奖情况</h2>
                   <ul>
                     <li v-for="(h, i) in resumeData.honors" :key="i">
-                      {{ h.honor_name }} ({{ h.honor_time }})
+                      <strong>{{ h.honor_name }}</strong> 
+                      <span v-if="h.honor_time" style="color: var(--text-color-light)"> ({{ h.honor_time }})</span>
                     </li>
                   </ul>
                 </section>
                 
-                <section class="preview-section professional-section" v-if="resumeData.skills.length">
+                <section class="professional-section" v-if="resumeData.skills.length">
                   <h2>个人特长/技能</h2>
-                  <ul>
+                  <ul class="skills-list">
                     <li v-for="(s, i) in resumeData.skills" :key="i">{{ s.skill_text }}</li>
                   </ul>
                 </section>
                 
-                <section class="preview-section professional-section" v-if="resumeData.certifications.length">
+                <section class="professional-section" v-if="resumeData.certifications.length">
                   <h2>证书</h2>
                   <ul>
                     <li v-for="(c, i) in resumeData.certifications" :key="i">
@@ -939,7 +1039,7 @@ const nameInitials = computed(() =>
                   </ul>
                 </section>
                 
-                <section class="preview-section professional-section" v-if="resumeData.languages.length">
+                <section class="professional-section" v-if="resumeData.languages.length">
                   <h2>语言能力</h2>
                   <ul>
                     <li v-for="(l, i) in resumeData.languages" :key="i">
@@ -948,7 +1048,7 @@ const nameInitials = computed(() =>
                   </ul>
                 </section>
                 
-                <section class="preview-section professional-section" v-if="resumeData.evaluation">
+                <section class="professional-section" v-if="resumeData.evaluation">
                   <h2>自我评价</h2>
                   <p>{{ resumeData.evaluation }}</p>
                 </section>
@@ -1060,11 +1160,19 @@ const nameInitials = computed(() =>
           <template v-else-if="resumeData.template === 'academic'">
             <div class="academic-layout">
               <header class="preview-header">
-                <h1 id="preview-name">{{ resumeData.name || '姓名' }}</h1>
-                <div class="contact-info" style="justify-content: center; display: flex; gap: 20px">
-                  <span v-if="resumeData.email" id="preview-email-display"><i class="ri-mail-line"></i> 邮箱：{{ resumeData.email }}</span>
-                  <span v-if="resumeData.phone" id="preview-phone-display"><i class="ri-phone-line"></i> 电话：{{ resumeData.phone }}</span>
-                  <span v-if="resumeData.hometown" id="preview-hometown-display"><i class="ri-map-pin-line"></i> 籍贯：{{ resumeData.hometown }}</span>
+                <div class="academic-header-content">
+                  <div class="avatar-container academic-avatar">
+                    <img :src="resumeData.avatar" class="preview-avatar" v-if="resumeData.avatar" />
+                    <div class="avatar-placeholder" v-else></div>
+                  </div>
+                  <div class="header-text">
+                    <h1 id="preview-name">{{ resumeData.name || '姓名' }}</h1>
+                    <div class="contact-info">
+                      <span v-if="resumeData.email" id="preview-email-display"><i class="ri-mail-line"></i> 邮箱：{{ resumeData.email }}</span>
+                      <span v-if="resumeData.phone" id="preview-phone-display"><i class="ri-phone-line"></i> 电话：{{ resumeData.phone }}</span>
+                      <span v-if="resumeData.hometown" id="preview-hometown-display"><i class="ri-map-pin-line"></i> 籍贯：{{ resumeData.hometown }}</span>
+                    </div>
+                  </div>
                 </div>
               </header>
               <section class="preview-section" v-if="resumeData.summary">
@@ -1105,5 +1213,18 @@ const nameInitials = computed(() =>
 
 .font-button {
   font-size: 14px;
+}
+
+/* 头像上传预览样式 */
+.avatar-preview {
+  margin-top: 15px;
+}
+
+.avatar-preview img {
+  max-width: 120px;
+  max-height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ddd;
 }
 </style>
