@@ -1,0 +1,1320 @@
+/* ===================================== */
+/* 1. 全局样式、CSS 变量与重置 */
+/* ===================================== */
+
+:root {
+  /* 颜色 */
+  --primary-color: #3b82f6;
+  --primary-hover-color: #2563eb;
+  --danger-color: #f44336;
+  --danger-bg-color: #fbebee;
+  --text-color-dark: #1f2937;
+  --text-color-light: #6b7280;
+  --bg-color-white: #ffffff;
+  --main-font-family: "Varela Round", sans-serif;
+  --main-text-color: #333333;
+  --bg-color-light: #f9fafb;
+  --border-color: #e5e7eb;
+  --main-font-size: 16px;
+
+  /* 字体 */
+  --font-family: "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  /* 布局 */
+  --navbar-height: 70px;
+  --sidebar-width: 65px;
+  --editor-panel-width: 380px;
+  --max-width: 1200px;
+  --border-radius: 10px;
+  --base-spacing:8px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color-white);
+  color: var(--text-color-dark);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  line-height:1.65;
+}
+
+/* ===================================== */
+/* 2. 通用按钮样式 (美化) */
+/* ===================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  font-size: 15px;
+  box-shadow:0 1px 3px rgba(0,0,0,0.05);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: white;
+}
+.btn-primary:hover {
+  background-color: var(--primary-hover-color);
+  box-shadow: 0 2px 6px rgba(59,130,246,0.2);
+}
+
+/* 添加经历按钮 */
+.btn-secondary-add {
+  width: 100%;
+  padding: 14px 12px;
+  border: 1px dashed var(--primary-color);
+  color: var(--primary-color);
+  background: transparent;
+}
+.btn-secondary-add:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+  border-style: solid;
+}
+
+/* 删除按钮 */
+.btn-danger {
+  width: 100%;
+  background-color: var(--danger-bg-color);
+  border: 1px solid var(--danger-color);
+  color: var(--danger-color);
+  font-weight: 500;
+  margin-top: 12px;
+}
+.btn-danger:hover {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+/* 技能旁的小删除按钮 */
+.remove-skill-btn {
+  background: var(--danger-bg-color);
+  color: var(--danger-color);
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  padding: 0;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(244,67,54,0.1);
+}
+.remove-skill-btn:hover {
+  background: var(--danger-color);
+  color: white;
+}
+
+/* ===================================== */
+/* 3. 顶部导航栏 (Navbar) */
+/* ===================================== */
+.navbar {
+  background-color: var(--bg-color-white);
+  padding: 0;
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  height: var(--navbar-height);
+  display: flex;
+  align-items: center;
+}
+.navbar .container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.navbar .nav-group {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.navbar .logo {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--text-color-dark);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+.navbar .logo i {
+  color: var(--primary-color);
+  font-size: 1.2em;
+}
+.navbar .logo .logo-text {
+  font-family: "Varela Round", sans-serif;
+  font-size: 1.3em;
+  font-weight: 1000;
+  background: linear-gradient(90deg, #00c4cc 0%, #5340ff 60%, #7a00ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.header-btn {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-color-light);
+  padding: 9px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.header-btn:hover {
+  background-color: var(--bg-color-light);
+  color: var(--text-color-dark);
+  border-color: #d1d5db;
+}
+
+/* ===================================== */
+/* 4. 主应用布局 (固定三栏) */
+/* ===================================== */
+
+#app-container {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) var(--editor-panel-width) 1fr;
+  height: calc(100vh - var(--navbar-height));
+  overflow: hidden;
+  transition: grid-template-columns 0.3s ease-in-out;
+  gap: 1px;
+}
+
+#app-container.editor-hidden {
+  grid-template-columns: var(--sidebar-width) 0 1fr;
+}
+
+/* ===================================== */
+/* 5. 左侧图标侧边栏 (Sidebar) */
+/* ===================================== */
+
+#main-sidebar {
+  background-color: var(--bg-color-white);
+  padding: 12px 0;
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  z-index: 10;
+  grid-column: 1 / 2;
+}
+.sidebar-item {
+  width: 100%;
+  padding: 14px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  color: var(--text-color-light);
+  font-size: 0.75em;
+  transition: background-color 0.2s, color 0.2s;
+}
+.sidebar-item i {
+  font-size: 1.6em;
+  line-height: 1;
+}
+.sidebar-item:hover {
+  background-color: var(--bg-color-light);
+  color: var(--text-color-dark);
+}
+.sidebar-item.active {
+  color: var(--primary-color);
+  background-color: rgba(59,130,246,0.06);
+}
+
+/* ===================================== */
+/* 6. 左侧编辑面板 (Editor Panel) */
+/* ===================================== */
+
+#editor-panel {
+  grid-column: 2 / 3;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-color-white);
+  border-right: 1px solid var(--border-color);
+  z-index: 9;
+  padding: 28px 25px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: all 0.3s ease-in-out;
+}
+
+#app-container.editor-hidden #editor-panel {
+  padding: 25px 0;
+  overflow: hidden;
+}
+
+.tab-content.hidden {
+  display: none;
+}
+
+/* ===================================== */
+/* 7. 表单内容样式 */
+/* ===================================== */
+
+fieldset {
+  border: none;
+  margin-bottom: 28px;
+  padding: 0;
+}
+legend {
+  font-size: 1.25em;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: var(--text-color-dark);
+}
+
+.input-row {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 12px;
+}
+
+.input-half {
+  flex: 1;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding:13px 12px;
+  margin-bottom: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-color-light);
+  font-size: 14px;
+  font-family: var(--font-family);
+  transition: all 0.2s;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="tel"]:focus,
+input[type="date"]:focus,
+textarea:focus {
+  border-color: var(--primary-color);
+  background-color: var(--bg-color-white);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+/* 日期输入框美化 */
+input[type="date"] {
+  position: relative;
+  cursor: pointer;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  padding: 2px;
+}
+
+/* 动态项组 */
+.item-group {
+  background-color: var(--bg-color-white);
+  border: 1px solid #e2e8f0; 
+  padding: 24px 20px; 
+  border-radius: var(--border-radius);
+  margin-bottom: 18px; 
+  box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+}
+
+.item-group-skill {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.item-group-skill input[type="text"] {
+  flex: 1;
+  margin-bottom: 0;
+}
+
+/* ===================================== */
+/* 8. 样式和工具面板 */
+/* ===================================== */
+.settings-module {
+  margin-bottom: 28px;
+  padding-bottom: 22px;
+  border-bottom: 1px dashed #d1d5db;
+  background: #f8f9fa;
+  border-radius: var(--border-radius);
+  padding:22px 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+.settings-module:last-child {
+  border-bottom: none;
+}
+
+.settings-module h3 {
+  font-size: 1.1em;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.template-selector {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.template-selector button {
+  padding: 16px 10px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color-light);
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.template-selector button:hover {
+  border-color: var(--primary-color);
+}
+.template-selector button.active {
+  border-color: var(--primary-color);
+  background-color: var(--bg-color-white);
+  color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.color-picker-group,
+.font-picker-group {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
+  padding:18px  15px;
+  background-color: var(--bg-color-light);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+}
+
+input[type="color"] {
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 2px solid #d1d5db;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.font-scrollable-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  padding:10px 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-color-light);
+}
+
+.font-button {
+  padding: 9px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  background-color: var(--bg-color-white);
+  cursor: pointer;
+  font-size: 14px;
+}
+.font-button.active {
+  background-color: var(--primary-color);
+  color: white !important;
+  border-color: var(--primary-color);
+}
+
+/* ===================================== */
+/* 9. 右侧预览面板 (实时更新区) */
+/* ===================================== */
+
+#preview-panel {
+  grid-column: 3 / 4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding:35px 30px;
+  overflow: auto;
+  background-color: #f3f4f6;
+}
+
+#resume-preview {
+  width: 210mm;
+  min-height: 297mm;
+  background: var(--bg-color-white);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  padding: 0;
+  transition: transform 0.3s ease-out;
+  transform-origin: center top;
+  font-size: 14px;
+  line-height: 1.65;
+  font-family: var(--main-font-family);
+  color: var(--main-text-color);
+  border-radius: 14px;
+  overflow: visible;
+}
+
+/* 重置部分模板的通用样式干扰 */
+.resume-template.modern .preview-header,
+.resume-template.professional .preview-header,
+.resume-template.creative .preview-header,
+.resume-template.minimal .preview-header,
+.resume-template.academic .preview-header {
+  text-align: left;
+}
+
+.resume-template {
+  font-size: var(--main-font-size);
+  line-height: 1.5;
+}
+
+/* ========================================================================= */
+/* 【重要修改】模板 3: Professional Style (专业风) - 纯净、蓝色短线版 */
+/* ========================================================================= */
+
+.resume-template.professional {
+  font-family: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: white;
+  padding: 25px 45px;
+  margin: 0;
+  color: var(--main-text-color);
+  line-height: 1.65;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 顶部区域 */
+.resume-template.professional .professional-header {
+  margin-bottom: 25px;
+  padding-bottom: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+  height: auto;
+  overflow: visible;
+}
+
+/* 专业风头像样式 */
+.resume-template.professional .professional-header-content {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.resume-template.professional .professional-avatar {
+  width: 85px;
+  height: 85px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  background: white;
+}
+
+.resume-template.professional .preview-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.resume-template.professional .header-text {
+  flex: 1;
+}
+
+/* 姓名样式 */
+.resume-template.professional #preview-name {
+  font-size: 1.5em;
+  font-weight: 700;
+  color: var(--main-text-color);
+  margin-bottom: 12px;
+  line-height: 1.3;
+  background: none;
+  text-shadow: none;
+  border: none;
+  text-align: left;
+  overflow: visible;
+  height: auto;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 100%;
+}
+
+/* 联系方式容器 */
+.resume-template.professional .professional-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 0.88em;
+  color: #555;
+  margin: 0;
+  justify-content: flex-start;
+}
+
+.resume-template.professional .professional-contact span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 0;
+}
+
+.resume-template.professional .professional-contact span::before {
+  content: none !important; /* 移除可能的伪元素干扰 */
+}
+
+.resume-template.professional .professional-contact i {
+  color: var(--primary-color);
+  font-size: 1.05em;
+  margin-right: 0;
+}
+
+/* --- 核心修改：蓝色短线标题 --- */
+.resume-template.professional .professional-content {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.resume-template.professional .professional-section {
+    padding: 0;
+    margin-bottom: 25px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+}
+
+.resume-template.professional .professional-section h2 {
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--main-text-color);
+  margin-bottom: 15px;
+  margin-top: 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--primary-color);
+  position: relative;
+  text-transform: none;
+  letter-spacing: 0;
+  background: none;
+  text-align: left;
+}
+
+.resume-template.professional .professional-section h2::before {
+    content: none !important;
+}
+
+.resume-template.professional .professional-section h2::after {
+  content: none !important;
+}
+
+/* --- 内容区域布局 --- */
+
+/* 移除之前的卡片背景样式，改为纯净排版 */
+.resume-template.professional .experience-detail,
+.resume-template.professional .education-item {
+  background: transparent;
+  border: none;
+  padding: 0 0 8px 0;
+  margin-bottom: 18px;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+/* 标题行：左边是职位/学校，右边是时间 */
+.resume-template.professional .item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  border-bottom: none;
+}
+
+.resume-template.professional .item-title {
+  font-size: 1.02em;
+  font-weight: 700;
+  color: #000;
+  flex: 1;
+}
+
+.resume-template.professional .item-subtitle {
+  font-size: 0.92em;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 8px;
+}
+
+.resume-template.professional .item-time {
+  font-size: 0.88em;
+  color: var(--primary-color);
+  font-weight: 600;
+  white-space: nowrap;
+  margin-left: 18px;
+  font-style: normal;
+}
+
+/* 列表样式 */
+.resume-template.professional ul {
+  padding-left: 20px;
+  margin: 8px 0 0 0;
+  list-style-type: disc;
+}
+
+.resume-template.professional li {
+  margin-bottom: 6px;
+  color: #4a4a4a;
+  font-size: 0.92em;
+  line-height: 1.5;
+}
+
+/* 技能标签样式 */
+.resume-template.professional .skills-list {
+    padding: 0 !important;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 8px 0 0 0;
+}
+
+.resume-template.professional .skills-list li {
+  display: inline-block;
+  background-color: #f3f4f6;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.88em;
+  margin-bottom: 8px;
+  margin-right: 10px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* ===================================== */
+/* 模板 4: Creative Layout (创意风) */
+/* ===================================== */
+.resume-template.creative {
+  font-family: "Poppins", "Helvetica Neue", sans-serif;
+  background: white;
+  padding: 45px;
+  margin: -40px;
+  color: var(--main-text-color);
+  line-height: 1.65;
+}
+.resume-template.creative .creative-layout {
+  display: grid;
+  grid-template-columns: 310px 1fr;
+  gap: 35px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.resume-template.creative .creative-left {
+  background: #f8f9fa;
+  padding:35px 30px;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+}
+.resume-template.creative .creative-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 22px;
+  width: 100%;
+}
+.resume-template.creative .creative-avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--primary-color);
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+}
+.resume-template.creative .preview-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.resume-template.creative #preview-name {
+  font-size: 2.3em;
+  font-weight: 700;
+  color: var(--main-text-color);
+  margin: 0;
+  background: none;
+  text-shadow: none;
+  border: none;
+  line-height: 1.2;
+}
+.resume-template.creative .creative-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  align-items: flex-start;
+}
+.resume-template.creative .creative-contact p {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.02em;
+  color: #666;
+  margin: 0;
+}
+.resume-template.creative .creative-contact i {
+  color: var(--primary-color);
+  font-size: 1.25em;
+  width: 20px;
+  text-align: center;
+}
+.resume-template.creative .creative-right {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.resume-template.creative .creative-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+.resume-template.creative .creative-section {
+  background: white;
+  padding:28px 25px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+.resume-template.creative .creative-section h2 {
+  font-size: 1.35em;
+  font-weight: 600;
+  color: var(--main-text-color);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 12px;
+  margin-bottom: 18px;
+  text-align: left;
+  background: none;
+}
+.resume-template.creative .creative-section ul {
+  list-style-type: disc;
+  padding-left: 28px;
+  margin: 0;
+}
+.resume-template.creative .creative-section li {
+  margin-bottom: 10px;
+  color: var(--main-text-color);
+}
+.resume-template.creative .experience-detail {
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+}
+.resume-template.creative .experience-detail h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+.resume-template.creative .experience-time {
+    color: var(--text-color-light);
+    font-size: 0.92em;
+    margin-bottom: 12px;
+}
+
+/* ===================================== */
+/* 模板 1: Modern Infographic (现代信息图) */
+/* ===================================== */
+.resume-template.modern {
+  font-family: "Inter", "Helvetica Neue", sans-serif;
+  background-color: #ffffff;
+  padding: 45px;
+  margin: -40px;
+}
+.resume-template.modern .header-content {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 35px;
+  padding-bottom: 25px;
+  border-bottom: 3px solid var(--primary-color);
+}
+.resume-template.modern .avatar-container {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--primary-color);
+  margin-top: 10px;
+}
+.resume-template.modern .preview-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.resume-template.modern #preview-name {
+  font-size: 2.6em;
+  font-weight: 800;
+  color: var(--main-text-color);
+  background: none;
+  text-shadow: none;
+  margin-bottom: 12px;
+  border: none;
+}
+.resume-template.modern .contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #4a5568;
+  font-size: 0.92em;
+}
+.resume-template.modern .contact-info span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.resume-template.modern .contact-info span::before {
+  font-family: "remixicon";
+  color: var(--primary-color);
+  font-size: 17px;
+}
+/* 现代模板图标 */
+.resume-template.modern #preview-email-display::before { content: "\ee86"; }
+.resume-template.modern #preview-phone-display::before { content: "\efd8"; }
+.resume-template.modern #preview-birthday-display::before { content: "\edf0"; }
+.resume-template.modern #preview-hometown-display::before { content: "\eefc"; }
+
+.resume-template.modern .preview-section {
+  background: #fafafa;
+  margin-top: 25px;
+  padding:25px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+}
+.resume-template.modern .preview-section h2 {
+  font-size: 1.25em;
+  color: var(--primary-color);
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+/* 现代模板标题图标 */
+.resume-template.modern .preview-section h2::before { font-family: "remixicon"; font-size: 1.2em; }
+.resume-template.modern #preview-summary-section h2::before { content: "\f0f4"; }
+.resume-template.modern #preview-education-section h2::before { content: "\eb3e"; }
+.resume-template.modern #preview-experience-section h2::before { content: "\ecb8"; }
+.resume-template.modern #preview-research-section h2::before { content: "\efc3"; }
+.resume-template.modern #preview-honors-section h2::before { content: "\f04b"; }
+.resume-template.modern #preview-certifications-section h2::before { content: "\eb14"; }
+.resume-template.modern #preview-languages-section h2::before { content: "\efcc"; }
+.resume-template.modern #preview-skills-section h2::before { content: "\ee4e"; }
+
+/* 现代模板时间轴 */
+.resume-template.modern .experience-detail,
+.resume-template.modern ul li {
+  padding-left: 32px;
+  border-left: 2px solid #e5e7eb;
+  position: relative;
+  margin-bottom: 20px;
+}
+.resume-template.modern .experience-detail::before,
+.resume-template.modern ul li::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 8px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: white;
+  border: 2px solid var(--primary-color);
+}
+.resume-template.modern .experience-detail h3 { font-weight: 700; font-size: 1.1em; }
+.resume-template.modern .experience-time { color: var(--primary-color); font-weight: 600; }
+
+/* ===================================== */
+/* 模板 2: Classic Monogram (经典会标) */
+/* ===================================== */
+.resume-template.classic {
+  font-family: "Inter", sans-serif;
+  background: white;
+  padding: 0;
+  margin: -40px;
+  color: var(--main-text-color);
+  line-height: 1.65;
+}
+.resume-template.classic .classic-layout {
+  display: grid;
+  grid-template-columns: 36% 64%;
+  height: 100%;
+  gap:1px;
+}
+.resume-template.classic .classic-sidebar {
+  background-color: #1e3a8a;
+  color: white;
+  padding: 35px 25px;
+  min-height: 1100px; /* 保证高度 */
+}
+.resume-template.classic .preview-header {
+  background-color: white;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+.resume-template.classic .avatar-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.resume-template.classic .preview-avatar {
+  width: 125px;
+  height: 125px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--primary-color);
+}
+.resume-template.classic #preview-name {
+  font-size: 1.9em;
+  font-weight: 700;
+  color: var(--main-text-color);
+  margin-bottom: 12px;
+  background: none;
+  text-shadow: none;
+  border: none;
+}
+.resume-template.classic .contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-size: 0.92em;
+  color: #666;
+  text-align: left;
+}
+.resume-template.classic .contact-info p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+.resume-template.classic .contact-info i {
+  color: var(--primary-color);
+  font-size: 1.05em;
+}
+.resume-template.classic .classic-sidebar-section {
+  background: rgba(255,255,255,0.12);
+  padding:20px 15px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+.resume-template.classic .classic-sidebar-section h2 {
+  color: white;
+  font-size: 1.15em;
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+.resume-template.classic .classic-sidebar-section p, 
+.resume-template.classic .classic-sidebar-section li {
+  color: rgba(255,255,255,0.92);
+  font-size: 0.92em;
+}
+.resume-template.classic .classic-main {
+  padding: 35px;
+  background-color: #f8fafc;
+}
+.resume-template.classic .preview-section {
+  background: white;
+  padding:25px 20px;
+  margin-bottom: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+.resume-template.classic .preview-section h2 {
+  font-size: 1.25em;
+  color: var(--main-text-color);
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 10px;
+  margin-bottom: 18px;
+  text-align: left;
+}
+.resume-template.classic .experience-detail h3 {
+    font-size: 1.15em;
+    font-weight: 600;
+}
+.resume-template.classic .experience-time {
+    color: var(--primary-color);
+    font-weight: 500;
+    font-size: 0.92em;
+}
+
+/* ===================================== */
+/* 模板 5: Minimalist Column (极简分栏) */
+/* ===================================== */
+.resume-template.minimal {
+  font-family: "Inter", sans-serif;
+  padding: 25px 45px;
+  margin: 0;
+  color: #555;
+  background: white;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 1.65;
+}
+
+.resume-template.minimal .minimal-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* 顶部区域 */
+.resume-template.minimal .minimal-header {
+  margin-bottom: 25px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #eee;
+}
+
+/* 简约风头像样式 */
+.resume-template.minimal .minimal-header-content {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.resume-template.minimal .minimal-avatar {
+  width: 85px;
+  height: 85px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+  background: white;
+}
+
+.resume-template.minimal .preview-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.resume-template.minimal .header-text {
+  flex: 1;
+}
+
+.resume-template.minimal #preview-name {
+  color: var(--main-text-color);
+  font-size: 2.1em;
+  font-weight: 600;
+  margin-bottom: 18px;
+  text-align: left;
+  border: none;
+  background: none;
+  line-height: 1.3;
+}
+
+.resume-template.minimal .contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 0.92em;
+  color: #666;
+}
+
+.resume-template.minimal .contact-info span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.resume-template.minimal .contact-info i {
+  color: var(--primary-color);
+  font-size: 1em;
+}
+
+/* 内容区块 */
+.resume-template.minimal .preview-section {
+  background: white;
+  padding: 20px 0;
+  margin-bottom: 0;
+  box-shadow: none;
+  border: none;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.resume-template.minimal .preview-section h2 {
+  font-size: 1.15em;
+  font-weight: 600;
+  color: var(--main-text-color);
+  margin-bottom: 15px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--primary-color);
+  text-transform: none;
+  letter-spacing: 0;
+  text-align: left;
+}
+
+.resume-template.minimal .preview-section p,
+.resume-template.minimal .preview-section ul {
+  margin: 0;
+  padding: 0;
+}
+
+.resume-template.minimal .preview-section ul {
+  padding-left: 22px;
+  list-style-type: disc;
+}
+
+.resume-template.minimal .preview-section li {
+  margin-bottom: 7px;
+  color: #555;
+  font-size: 0.95em;
+  line-height: 1.5;
+}
+
+/* 经验详情 */
+.resume-template.minimal .experience-detail {
+  margin-bottom: 12px;
+}
+
+.resume-template.minimal .experience-detail p {
+  font-weight: 500;
+  margin-bottom: 7px;
+  color: #333;
+}
+
+.resume-template.minimal .experience-detail ul {
+  margin-top: 7px;
+}
+
+/* ===================================== */
+/* 模板 6: Academic Gazette (学术公报) */
+/* ===================================== */
+.resume-template.academic {
+  font-family: "Times New Roman", Times, serif;
+  font-size: 11pt;
+  color: #000;
+  background: white;
+  padding: 45px;
+  margin: -40px;
+  line-height: 1.65;
+}
+.resume-template.academic .preview-header {
+  text-align: left;
+  border: none;
+  padding: 25px 0;
+}
+
+.resume-template.academic .academic-header-content {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.resume-template.academic .avatar-container {
+  width: 85px;
+  height: 85px;
+  border-radius: 0;
+  overflow: hidden;
+  border: 2px solid #111;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+}
+
+.resume-template.academic .preview-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.resume-template.academic .avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+  color: #999;
+}
+
+.resume-template.academic .header-text {
+  flex: 1;
+}
+
+.resume-template.academic #preview-name {
+  font-size: 2.3em;
+  font-weight: bold;
+  background: none;
+  text-shadow: none;
+  border: none;
+  margin-bottom: 12px;
+}
+.resume-template.academic .contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  font-size: 0.92em;
+  color: #333;
+  justify-content: flex-start;
+  margin-top: 12px;
+}
+.resume-template.academic .preview-section {
+  background: white;
+  padding: 0;
+  margin-bottom: 30px;
+  box-shadow: none;
+  border: none;
+}
+.resume-template.academic .preview-section h2 {
+  font-size: 1.25em;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  border-bottom: 1px solid #111;
+  padding-bottom: 8px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.resume-template.academic ul { padding-left: 25px; }
+.resume-template.academic li { margin-bottom: 8px; }
